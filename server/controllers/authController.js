@@ -8,8 +8,10 @@ router.post('/register', async (req, res) => {
     const data = req.body;
     const { profilePicture } = req.body;
     let profilePhotoId;
-    console.log(process.env.CLOUD_KEY)
     try {
+        if(!profilePicture){
+            throw new Error('Profile picture is required!')
+        }
         const upload = await cloudinary.v2.uploader.upload(profilePicture, {
             fetch_format: "auto",
             folder: "Task-Management",
@@ -23,12 +25,13 @@ router.post('/register', async (req, res) => {
             secure: true,
             sameSite: 'none',
         });
-        console.log(user)
         res.status(201).json({user});
     } catch (error) {
-        console.log(error);
-        // await cloudinary.v2.uploader.destroy(profilePhotoId);
-        // res.status(400).json({error: error.message})
+        console.log(error)
+        if(profilePicture){
+            await cloudinary.v2.uploader.destroy(profilePhotoId);
+        }
+        res.status(400).json({error: error.message})
     }
 })
 router.post('/login', async (req, res) => {

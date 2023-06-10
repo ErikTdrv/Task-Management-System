@@ -1,4 +1,4 @@
-.register_container {
+.authentication_container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
     background-color: #0091ca;
 }
 
-.register_form {
+.authentication_form {
     display: flex;
     flex-direction: column;
     width: 350px;
@@ -17,14 +17,14 @@
     align-items: center;
 }
 
-.register_form h1 {
+.authentication_form h1 {
     font-size: 30px;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
     margin-top: 0px;
     text-align: center;
 }
 
-.register_form div {
+.authentication_form .divs {
     width: 83%;
     /* margin-left: 20px; */
     /* padding: 10px 10px; */
@@ -38,21 +38,21 @@
     transition: border 0.2s ease-in-out;
 }
 
-.register_form input {
+.authentication_form input {
     border: none;
     width: 100%;
     padding: 13px 0px;
     padding-left: 15px;
 }
-div:focus-within {
+.divs:focus-within {
     border-color: #0091ca;
 }
-.register_form input:focus {
+.authentication_form input:focus {
     outline: none;
 }
 
 
-.register_form button {
+.authentication_form button {
     padding: 10px 70px;
     border-radius: 20px;
     border: none;
@@ -61,49 +61,57 @@ div:focus-within {
     font-weight: bold;
     margin-top: 10px;
 }
-.register_form button:hover {
+.authentication_form button:hover {
     background-color: #00fff2;
 }
-.register_form div i {
+.authentication_form .divs i {
     margin: 0px 10px;
     margin-top: 13px;
 }
 .file input {
     display: none;
 }
-.register_container .file i {
+.authentication_container .file i {
     font-size: 18px;
     transition: 0.2s ease-in-out;
 }
-.register_container label:hover i{
+.authentication_container label:hover i{
     cursor: pointer;
     transform: rotate(45deg);
 }
-.register_container label {
+.authentication_container label {
     font-weight: bold;
 }
-.register_container .file {
+.authentication_container .file {
     border: none;
     margin-left: -15px;
 }
-.register_form img {
+.authentication_form img {
     border-radius: 100px;
     width: 100px;
     height: 100px;
     margin-bottom: 50px;
 }
-.register_form p {
+.authentication_form p {
     font-style: italic;
     margin-top: 30px;
     margin-bottom: 0px;
 }
-.register_form p span {
+.authentication_form p span {
     text-decoration: underline;
     cursor: pointer;
     color: rgb(255, 121, 121);
     font-weight: bold;
 
 }
-.register_form p span:hover {
+.authentication_form p span:hover {
     color: rgb(255, 0, 0);
+}
+.error {
+    font-weight: bold;
+    margin-top: -17px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    color: red;
+    text-align: center;
 }

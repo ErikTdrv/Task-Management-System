@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import Register from './components/Authentication/Register/Register';
-import Login from './components/Authentication/Login/Login';
+import Register from './components/Authentication/Register';
+import Login from './components/Authentication/Login';
 
 function App() {
   return (
