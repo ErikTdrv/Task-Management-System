@@ -28,3 +28,18 @@ router.post('/register', async (req, res) => {
         res.status(400).json({error: error.message})
     }
 })
+router.post('/login', async (req, res) => {
+    const data = req.body;
+    try {
+        const user = await login(data);
+        res.cookie("auth", user.cookie, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+        });
+        res.status(201).json({user});
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({error: error.message})
+    }
+})
