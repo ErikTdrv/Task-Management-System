@@ -5,11 +5,13 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const initDatabase = require('./configs/initDatabase');
+const router = require('./routes');
 
 app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(router);
 
 const PORT = 7070 || process.env.PORT;
 app.listen(PORT, () => console.log(`Server listening on localhost:${PORT}`));
