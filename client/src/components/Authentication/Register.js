@@ -7,14 +7,15 @@ export default function Register() {
     const [authData, setAuthData] = useState({ username: '', email: '', password: '', repeatPassword: '', profilePicture: '', captcha: '' })
     const [errors, setErrors] = useState({ username: '', email: '', password: '', repeatPassword: '', profilePicture: '', captcha: '' })
     const [mainError, setMainError] = useState('');
+    const [areErrors, setAreErrors] = useState(false)
     async function registerHandler(e) {
         e.preventDefault()
-        console.log(authData.captcha)
-        if(authData.captcha == ''){
-            console.log('here')
-            return setErrors({...errors, captcha: 'You must complete captcha!'})
-        }else if(authData.profilePicture == ''){
-            return setErrors({...errors, profilePicture: 'You must upload profile picture!'})
+        if (authData.captcha == '') {
+            setAreErrors(true)
+            return setErrors({ ...errors, captcha: 'You must complete captcha!' })
+        } else if (authData.profilePicture == '') {
+            setAreErrors(true)
+            return setErrors({ ...errors, profilePicture: 'You must upload profile picture!' })
         }
         const user = await register(authData);
         if (user?.error) {
@@ -23,8 +24,8 @@ export default function Register() {
     }
     function validateInputs(e, type) {
         const currentValue = e.target.value;
-        if(currentValue == ''){
-            setErrors({...errors, [type]: 'Field is required!'})
+        if (currentValue == '') {
+            setErrors({ ...errors, [type]: 'Field is required!' })
         } else if (type == 'repeatPassword' && authData.repeatPassword != authData.password) {
             setErrors({ ...errors, [type]: 'Passwords must be equal!' })
         } else if (type == 'email') {
@@ -33,13 +34,15 @@ export default function Register() {
                 setErrors({ ...errors, [type]: 'Email must have 8 - 30 characters!' })
             } else if (!emailRegex.test(currentValue)) {
                 setErrors({ ...errors, [type]: 'Email must be valid!' })
+            } else {
+                setErrors({ ...errors, [type]: '' })
             }
-        } else if(type == 'username' && (currentValue < 2 || currentValue > 10)){
+        } else if (type == 'username' && (currentValue.length < 2 || currentValue.length > 10)) {
             setErrors({ ...errors, [type]: 'Username must have 2 - 10 characters!' })
-        } else if(type == 'password' && (currentValue < 6 || currentValue > 15)){
+        } else if (type == 'password' && (currentValue.length < 6 || currentValue.length > 15)) {
             setErrors({ ...errors, [type]: 'Password must have 6 - 15 characters!' })
         } else {
-            setErrors({...errors, [type]: ''})
+            setErrors({ ...errors, [type]: '' })
         }
     }
     return (
@@ -55,7 +58,7 @@ export default function Register() {
                         onBlur={(e) => validateInputs(e, 'username')}
                     />
                 </div>
-                { errors?.username && <span className='error'>{errors.username}</span>}
+                {errors?.username && <span className='error'>{errors.username}</span>}
                 <div className="divs email">
                     <i className="fa-solid fa-envelope"></i>
                     <input type="text" placeholder='Email...'
@@ -63,7 +66,7 @@ export default function Register() {
                         onBlur={(e) => validateInputs(e, 'email')}
                     />
                 </div>
-                { errors?.email && <span className='error'>{errors.email}</span>}
+                {errors?.email && <span className='error'>{errors.email}</span>}
                 <div className="divs password">
                     <i className="fa-solid fa-lock"></i>
                     <input type="password" placeholder='Password...'
@@ -71,7 +74,7 @@ export default function Register() {
                         onBlur={(e) => validateInputs(e, 'password')}
                     />
                 </div>
-                { errors?.password && <span className='error'>{errors.password}</span>}
+                {errors?.password && <span className='error'>{errors.password}</span>}
                 <div className="divs re-pass">
                     <i className="fa-solid fa-lock"></i>
                     <input type="password" placeholder='Repeat Password...'
@@ -79,7 +82,7 @@ export default function Register() {
                         onBlur={(e) => validateInputs(e, 'repeatPassword')}
                     />
                 </div>
-                { errors?.repeatPassword && <span className='error'>{errors.repeatPassword}</span>}
+                {errors?.repeatPassword && <span className='error'>{errors.repeatPassword}</span>}
                 <div className="divs file">
                     <label>
                         <i className="fa-solid fa-plus"></i>
@@ -90,11 +93,12 @@ export default function Register() {
                         />
                     </label>
                 </div>
-                { errors?.profilePicture && <span className='error'>{errors.profilePicture}</span>}
-                <ReCAPTCHA className='captcha' onChange={(token) => setAuthData({ ...authData, captcha: token })} 
-                            sitekey="6LddUYgmAAAAAHPKEc3-tIjOITc6PCzrs4Zl_9Sz" />
-                { errors?.captcha && <span className='error'>{errors.captcha}</span>}
-                <button>Register</button>
+                {errors?.profilePicture && <span className='error'>{errors.profilePicture}</span>}
+                <ReCAPTCHA className='captcha' onChange={(token) => setAuthData({ ...authData, captcha: token })}
+                    sitekey="6LddUYgmAAAAAHPKEc3-tIjOITc6PCzrs4Zl_9Sz" />
+                {errors?.captcha && <span className='error'>{errors.captcha}</span>}
+                <button disabled={Object.values(errors).some((e) => e.length > 0) ||
+                    Object.values(authData).some((e) => e.length === 0)}>Register</button>
                 <p>Already have an account? <span>Sign In Here</span></p>
             </form>
         </div>
