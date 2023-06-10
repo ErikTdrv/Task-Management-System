@@ -1,0 +1,109 @@
+.register_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0091ca;
+}
+
+.register_form {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+
+.register_form h1 {
+    font-size: 30px;
+    margin-bottom: 40px;
+    margin-top: 0px;
+    text-align: center;
+}
+
+.register_form div {
+    width: 83%;
+    /* margin-left: 20px; */
+    /* padding: 10px 10px; */
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    display: flex;
+    transition: border 0.2s ease-in-out;
+}
+
+.register_form input {
+    border: none;
+    width: 100%;
+    padding: 13px 0px;
+    padding-left: 15px;
+}
+div:focus-within {
+    border-color: #0091ca;
+}
+.register_form input:focus {
+    outline: none;
+}
+
+
+.register_form button {
+    padding: 10px 70px;
+    border-radius: 20px;
+    border: none;
+    background-color: #66d4ff;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.register_form button:hover {
+    background-color: #00fff2;
+}
+.register_form div i {
+    margin: 0px 10px;
+    margin-top: 13px;
+}
+.file input {
+    display: none;
+}
+.register_container .file i {
+    font-size: 18px;
+    transition: 0.2s ease-in-out;
+}
+.register_container label:hover i{
+    cursor: pointer;
+    transform: rotate(45deg);
+}
+.register_container label {
+    font-weight: bold;
+}
+.register_container .file {
+    border: none;
+    margin-left: -15px;
+}
+.register_form img {
+    border-radius: 100px;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 50px;
+}
+.register_form p {
+    font-style: italic;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+.register_form p span {
+    text-decoration: underline;
+    cursor: pointer;
+    color: rgb(255, 121, 121);
+    font-weight: bold;
+
+}
+.register_form p span:hover {
+    color: rgb(255, 0, 0);
+}
