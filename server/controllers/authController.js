@@ -1,4 +1,4 @@
-const { register } = require('../services/authService');
+const { register, login } = require('../services/authService');
 const cloudinary = require('cloudinary');
 
 const router = require('express').Router();
