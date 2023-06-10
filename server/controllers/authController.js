@@ -1,16 +1,18 @@
+require('dotenv').config()
+const router = require('express').Router();
 const { register, login } = require('../services/authService');
 const cloudinary = require('cloudinary');
 
-const router = require('express').Router();
 
 router.post('/register', async (req, res) => {
     const data = req.body;
     const { profilePicture } = req.body;
     let profilePhotoId;
+    console.log(process.env.CLOUD_KEY)
     try {
         const upload = await cloudinary.v2.uploader.upload(profilePicture, {
             fetch_format: "auto",
-            folder: "TaskManagement",
+            folder: "Task-Management",
         });
         data.profilePicture = upload.url;
         data.imageId = upload.public_id;
@@ -21,11 +23,12 @@ router.post('/register', async (req, res) => {
             secure: true,
             sameSite: 'none',
         });
+        console.log(user)
         res.status(201).json({user});
     } catch (error) {
         console.log(error);
-        await cloudinary.v2.uploader.destroy(profilePhotoId);
-        res.status(400).json({error: error.message})
+        // await cloudinary.v2.uploader.destroy(profilePhotoId);
+        // res.status(400).json({error: error.message})
     }
 })
 router.post('/login', async (req, res) => {
@@ -43,3 +46,5 @@ router.post('/login', async (req, res) => {
         res.status(400).json({error: error.message})
     }
 })
+
+module.exports = router;

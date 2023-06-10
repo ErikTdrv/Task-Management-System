@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const validateToken = (token) => {
     try {
-        const data = jwt.verify(token, process.env.SECRET_KEY)
+        const data = jwt.verify(token, 'DASIJ319-0DSANM19M')
         return data
     } catch (error) {
         throw new Error('Invalid cookie token!')
@@ -20,8 +20,7 @@ const createAccessToken = (user) => {
     return {
         _id: user._id,
         email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        username: user.username,
         cookie
     };
 }
@@ -34,6 +33,7 @@ const register = async (data) => {
     } else if (existingUsername) {
         throw new Error('Username already exists!')
     }
+    console.log(data)
     const user = await User.create(data)
     return createAccessToken(user)
 }

@@ -7,7 +7,13 @@ const cookieParser = require('cookie-parser');
 const initDatabase = require('./configs/initDatabase');
 const router = require('./routes');
 
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'Origin', 'X-Requested-With', 'Accept', 'Cookie'],
+    credentials: true,
+    allowedHeaders: ['Content-Type, X-Authorization'],
+    optionsSuccessStatus: 200,
+}));
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
