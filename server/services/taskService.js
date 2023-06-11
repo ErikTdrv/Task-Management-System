@@ -57,7 +57,7 @@ const setTaskAsDone = async (taskId, userId) => {
 }
 const getCompletedTasks = async (userId) => {
     try {
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).populate('completedTasks');
         return user.completedTasks
     } catch (error) {
         throw new Error(error)

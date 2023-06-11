@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import './TaskCard.css'
 import { calculateTime } from "../../services/taskService";
 
-export default function TaskCard({ task, setCurrentTaskClick }) {
+export default function TaskCard({ task, setCurrentTaskClick, mode }) {
     const [timeLeft, setTimeLeft] = useState('');
     const [hasTimePassed, setHasPassedTime] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     useEffect(() => {
         calculateTime(task, setTimeLeft, setHasPassedTime)
-
+        if(mode === 'view'){
+            setIsChecked(true)
+        }
     }, [task]);
     return (
         <div onClick={() => setCurrentTaskClick(task)} className={`task ${hasTimePassed ? 'passed_time_div' : ''}`}>
@@ -24,7 +26,11 @@ export default function TaskCard({ task, setCurrentTaskClick }) {
                 </div>
                 <div className="hours_left">
                     <i className="fa-regular fa-hourglass-half"></i>
-                    { !hasTimePassed ? <span>Time left: {timeLeft}</span> : <span className="passed_time">TIME HAS PASSED!!!</span>}
+                    {mode == 'view' ? <span>TASK IS COMPLETED</span> : (
+                        <>
+                            {!hasTimePassed ? <span>Time left: {timeLeft}</span> : <span className="passed_time">TIME HAS PASSED!!!</span>}
+                        </>
+                    )}
                 </div>
             </div>
             {task.importance == 'Not Important' ? (
@@ -32,9 +38,9 @@ export default function TaskCard({ task, setCurrentTaskClick }) {
             ) : (
                 <div className={`importance ${task.importance}`}>{task.importance}</div>
             )}
-            
-            {hasTimePassed ? <i className="fa-solid fa-xmark"></i> : <input type="checkbox" className={isChecked ? 'checked_animation' : ''} checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} name="" id="" />}
-            
+        
+            {hasTimePassed && mode !== 'view'? <i className="fa-solid fa-xmark"></i> : <input disabled={mode == 'view'} type="checkbox" className={isChecked ? 'checked_animation' : ''} checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} name="" id="" />}
+
         </div>
     )
 }
