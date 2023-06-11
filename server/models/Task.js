@@ -5,7 +5,7 @@ const taskSchema = new mongoose.Schema({
         required: true,
         type: String,
         minlength: [6, 'Title must have at least 6 characters'],
-        maxlength: [20, 'Title must not have more than 20 characters!'],
+        maxlength: [40, 'Title must not have more than 40 characters!'],
     },
     date: {
         required: true, 
@@ -23,7 +23,7 @@ const taskSchema = new mongoose.Schema({
         required: true,
         type: String,
         minlength: [20, 'Description must have at least 20 characters!'],
-        maxlength: [60, 'Description must not have more than 60 characters!']
+        maxlength: [300, 'Description must not have more than 300 characters!']
     }
 });
 

@@ -43,3 +43,8 @@ section h1 {
 .create_task .add_btn {
     margin-top: 30px;
 }
+section div {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 25px;
+}

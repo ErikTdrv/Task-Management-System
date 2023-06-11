@@ -7,20 +7,20 @@ export default function Home() {
             <div className="info__panel">
                 <div className="options">
                     <div>
-                        <i class="fa-solid fa-list-check"></i>
+                        <i className="fa-solid fa-list-check"></i>
                         <h1>Tasks</h1>
                     </div>
                     <div>
-                        <i class="fa-solid fa-check"></i>
+                        <i className="fa-solid fa-check"></i>
                         <h1>Completed Tasks</h1>
                     </div>
                     <div>
-                        <i class="fa-solid fa-file-export"></i>
+                        <i className="fa-solid fa-file-export"></i>
                         <h1>Download Tasks</h1>
                     </div>
                 </div>
                 <div className="add_task">
-                    <i class="fa-solid fa-plus"></i>
+                    <i className="fa-solid fa-plus"></i>
                 </div>
             </div>
             <div className="main__panel">
@@ -38,7 +38,7 @@ export default function Home() {
                             <div className="task-info">
                                 <div className="name">Learn React</div>
                                 <div className="due">
-                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <i className="fa-solid fa-calendar-days"></i>
                                     <span>12/31/2023</span>
                                 </div>
                                 <div className="importance">High</div>
@@ -53,7 +53,7 @@ export default function Home() {
                         <div className='task__overview__task'>
                             <h1>Learn React</h1>
                             <div className="due">
-                                <i class="fa-solid fa-calendar-days"></i>
+                                <i className="fa-solid fa-calendar-days"></i>
                                 <span>12/31/2023</span>
                             </div>
                             <div className="description">
