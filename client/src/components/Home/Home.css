@@ -161,18 +161,21 @@
     align-items: center;
 }
 
-.due i{
+.due i {
     margin-right: 5px;
     margin-left: 15px;
 }
+
 .hours i {
     margin-right: 3px;
     margin-left: 15px;
 }
+
 .hours_left i {
     margin-left: 16px;
     margin-right: 5px;
 }
+
 .hours_left {
     font-size: 12px;
     color: #888;
@@ -180,6 +183,7 @@
     justify-content: flex-start;
     align-items: center;
 }
+
 .due {
     font-size: 12px;
     color: #888;
@@ -212,7 +216,7 @@
 
 .task input[type="checkbox"] {
     width: 30px;
-  height: 30px;
+    height: 30px;
     font-size: 30px;
     background-color: green;
     color: green;
@@ -279,17 +283,32 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .task-info .name {
     margin-bottom: 10px;
 }
+
 .passed_time {
     color: red;
     font-weight: 900;
 }
+
 .passed_time_div {
     background-color: rgb(255, 187, 59);
 }
+
 .passed_time_div:hover {
     background-color: rgb(255, 173, 21);
 
+}
+
+.delete-animation {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delete-animation.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
 }

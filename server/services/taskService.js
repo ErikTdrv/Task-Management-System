@@ -36,9 +36,18 @@ const editOneTask = async (taskData) => {
         throw new Error(error);
     }
 }
+const deleteOneTask = async (taskId) => {
+    try {
+        const task = await Task.findByIdAndDelete(taskId)
+        return task
+    } catch (error) {
+        throw new Error(error);
+    }
+}
 module.exports = {
     addTask,
     getAllTasks,
     getOneTask,
     editOneTask, 
+    deleteOneTask,
 }

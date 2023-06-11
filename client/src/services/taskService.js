@@ -11,6 +11,16 @@ export const addTask = async (task) => {
   });
   return await response.json();
 }
+export const deleteTask = async (taskId) => {
+  const response = await fetch(`${API_URL}/task/${taskId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include'
+  });
+  return await response.json();
+}
 export const getAllTasks = async () => {
   const response = await fetch(`${API_URL}/all-tasks`, {
     method: 'GET',

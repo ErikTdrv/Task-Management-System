@@ -21,13 +21,7 @@ export default function CreateTask({ mode }) {
         e.preventDefault();
         dataTimeValidation(taskData, setTaskData, setMainError);
         let task;
-        // if (taskData.minutes == '0' && taskData.hours == '0') {
-        //     setTaskData({ ...taskData, minutes: '00', hours: '00' })
-        // }else if(taskData.hours == '0' && taskData.minutes == ''){
-        //     setTaskData({ ...taskData, minutes: '00', hours: '00' })
-        // }else if(taskData.minutes == '0' && taskData.hours == ''){
-        //     setTaskData({ ...taskData, hours: '00', hours: '00' })
-        // }
+    
         if (mode == 'edit') {
             task = await editTask(taskData)
         } else {

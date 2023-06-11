@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Home.css'
 import { useNavigate } from 'react-router-dom';
-import { getAllTasks } from '../../services/taskService';
+import { deleteTask, getAllTasks } from '../../services/taskService';
 import TaskCard from '../TaskCard/TaskCard';
 import TaskOverview from './TaskOverview';
 
@@ -11,17 +11,25 @@ export default function Home() {
     const [currentTaskClick, setCurrentTaskClick] = useState();
     const navigate = useNavigate();
     useEffect(() => {
-        async function getAllData(){
+        async function getAllData() {
             const tasks = await getAllTasks();
-            if(!tasks?.error){
-                console.log(tasks)
+            if (!tasks?.error) {
                 setAllTasks(tasks)
                 setIsLoading(false)
             }
         }
         getAllData();
-    }, [])  
-
+    }, [])
+    const deleteTaskHandler = async (taskId) => {
+        const response = await deleteTask(taskId);
+        if (!response.error) {
+            // Remove the deleted task from the task list
+            setAllTasks((prevTasks) =>
+                prevTasks.filter((task) => task._id !== taskId)
+            );
+            setCurrentTaskClick();
+        }
+    };
     return (
         <div className="home__container">
             <div className="info__panel">
@@ -54,28 +62,28 @@ export default function Home() {
                 </div>
                 <div className="tasks">
                     <div className="tasks__panel">
-                        { !isLoading && (
+                        {!isLoading && (
                             <>
-                            { allTasks.length == 0 ? (
-                                <h1 className='empty'>No current tasks!</h1>
-                            ) : (
-                                allTasks.map((task) => {
-                                    return <TaskCard key={task._id} setCurrentTaskClick={setCurrentTaskClick} task={task} />
-                                })
-                            )}
+                                {allTasks.length == 0 ? (
+                                    <h1 className='empty'>No current tasks!</h1>
+                                ) : (
+                                    allTasks.map((task) => {
+                                        return <TaskCard key={task._id} setCurrentTaskClick={setCurrentTaskClick} task={task} />
+                                    })
+                                )}
                             </>
                         )}
-                        
+
                     </div>
                     <div className="task__overview">
                         <h1>Task Overview</h1>
                         <span className='info'>Click on task to see information</span>
                         <img src="./tasks2.jpg" />
-                        {currentTaskClick && <TaskOverview task={currentTaskClick}/>}
+                        {currentTaskClick && <TaskOverview task={currentTaskClick} deleteTaskHandler={deleteTaskHandler} />}
                     </div>
                 </div>
             </div>
         </div>
     );
-    
+
 }

@@ -1,4 +1,4 @@
-const { addTask, getAllTasks, getOneTask, editOneTask } = require('../services/taskService');
+const { addTask, getAllTasks, getOneTask, editOneTask, deleteOneTask } = require('../services/taskService');
 
 const router = require('express').Router();
 
@@ -8,6 +8,17 @@ router.get('/all-tasks', async (req, res) => {
         const tasks = await getAllTasks(userId);
         res.status(201).json(tasks);
     } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+})
+router.delete('/task/:taskId', async (req, res) => {
+    console.log('here')
+    const taskId = req.params.taskId;
+    try {
+        const task = await deleteOneTask(taskId);
+        res.status(201).json(task);
+    } catch (error) {
+        console.log(error)
         res.status(400).json({ error: error.message })
     }
 })

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { calculateTime } from "../../services/taskService";
+import { calculateTime, deleteTask } from "../../services/taskService";
 import { Link } from 'react-router-dom';
 
-export default function TaskOverview({ task }) {
+export default function TaskOverview({ task, deleteTaskHandler }) {
     const [timeLeft, setTimeLeft] = useState('');
     const [hasTimePassed, setHasPassedTime] = useState(false);
 
     useEffect(() => {
         calculateTime(task, setTimeLeft, setHasPassedTime)
-        
     }, [task]);
+
     return (
         <div className='task__overview__task'>
             <h1>{task.title}</h1>
@@ -29,7 +29,7 @@ export default function TaskOverview({ task }) {
                 {task.description}
             </div>
             <div className="buttons">
-                <button className='deleteBtn'>Delete</button>
+                <button onClick={() => deleteTaskHandler(task._id)} className='deleteBtn'>Delete</button>
                 <button className='shareBtn'>Share</button>
                 <Link to={`/add-task/${task._id}`}>
                     <button className='editBtn'>Edit</button>
