@@ -13,8 +13,7 @@ const createAccessToken = (user) => {
     const payload = {
         _id: user._id,
         email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        username: user.username
     }
     const cookie = jwt.sign(payload, 'DASIJ319-0DSANM19M')
     return {
@@ -62,5 +61,6 @@ const login = async (data) => {
 
 module.exports = {
     register,
-    login
+    login, 
+    validateToken
 }

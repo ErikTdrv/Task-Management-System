@@ -10,10 +10,12 @@ import CreateTask from './components/CreateTask/CreateTask';
 function App() {
   return (
     <Routes>
-      <Route exact path="/" element={<CreateTask />} />
+      <Route exact path="/" element={<InitialPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/add-task" element={<CreateTask />} />
+
     </Routes>
   );
 }

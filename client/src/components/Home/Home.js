@@ -1,7 +1,9 @@
 import React from 'react'
 import './Home.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+    const navigate = useNavigate();
     return (
         <div className="home__container">
             <div className="info__panel">
@@ -19,7 +21,7 @@ export default function Home() {
                         <h1>Download Tasks</h1>
                     </div>
                 </div>
-                <div className="add_task">
+                <div className="add_task" onClick={() => navigate('/add-task')}>
                     <i className="fa-solid fa-plus"></i>
                 </div>
             </div>

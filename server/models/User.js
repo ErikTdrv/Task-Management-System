@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: [2, 'Last Name must have at least 2 characters!'],
         maxlength: [10, 'Last Name must not have more than 10 characters!']
-    }, 
+    },
     email: {
         type: String,
         required: true,
@@ -23,19 +23,31 @@ const userSchema = new mongoose.Schema({
     profilePicture: {
         type: String,
         required: true
-    }, 
+    },
     imageId: {
         type: String,
         required: true
     },
+    addedTasks: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Task",
+        },
+    ],
+    completedTasks: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Task",
+        },
+    ],
 })
 
 userSchema.pre("save", function (next) {
     bcrypt.hash(this.password, 10).then((hash) => {
-      this.password = hash;
-      return next();
+        this.password = hash;
+        return next();
     });
-  });
+});
 
 const User = new mongoose.model('User', userSchema)
 module.exports = User;

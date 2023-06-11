@@ -188,6 +188,7 @@
     background-color: green;
     color: green;
     outline: none;
+    margin-right: 50px;
 }
 
 .task input[type="checkbox"]:checked {

@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 
 const initDatabase = require('./configs/initDatabase');
 const router = require('./routes');
+const { authMiddleware } = require('./middlewares/authMiddleware');
 
 app.use(cors({
     origin: ['http://localhost:3000'],
@@ -17,6 +18,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(authMiddleware);
 app.use(router);
 
 const PORT = 7070 || process.env.PORT;
