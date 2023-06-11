@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Authentication.css';
 import { login } from '../../services/userService';
 
 export default function Login(){
     const [authData, setAuthData] = useState({email: '', password: ''})
     const [mainError, setMainError] = useState('');
+    const navigate = useNavigate();
+
     async function loginHandler(e){
         e.preventDefault();
         const user = await login(authData);
@@ -12,6 +15,7 @@ export default function Login(){
             setMainError(user.error)
         }else {
             setMainError('');
+            navigate('/home')
         }
     }
     return (

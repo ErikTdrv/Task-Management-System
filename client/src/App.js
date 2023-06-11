@@ -5,13 +5,15 @@ import Login from './components/Authentication/Login';
 import { Routes, Route } from 'react-router-dom';
 import InitialPage from './components/InitialPage/InitialPage';
 import Home from './components/Home/Home';
+import CreateTask from './components/CreateTask/CreateTask';
 
 function App() {
   return (
     <Routes>
-      <Route exact path="/" element={<Home />} />
+      <Route exact path="/" element={<CreateTask />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/home" element={<Home />} />
     </Routes>
   );
 }

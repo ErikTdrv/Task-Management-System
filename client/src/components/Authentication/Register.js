@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import './Authentication.css';
 import { convertToBase64, register } from '../../services/userService';
 import ReCAPTCHA from 'react-google-recaptcha';
+import {  useNavigate } from 'react-router-dom';
 
 export default function Register() {
     const [authData, setAuthData] = useState({ username: '', email: '', password: '', repeatPassword: '', profilePicture: '', captcha: '' })
     const [errors, setErrors] = useState({ username: '', email: '', password: '', repeatPassword: '', profilePicture: '', captcha: '' })
     const [mainError, setMainError] = useState('');
     const [areErrors, setAreErrors] = useState(false)
+    const navigate = useNavigate();
     async function registerHandler(e) {
         e.preventDefault()
         if (authData.captcha == '') {
@@ -20,6 +22,8 @@ export default function Register() {
         const user = await register(authData);
         if (user?.error) {
             setMainError(user.error)
+        }else {
+            navigate('/home')
         }
     }
     function validateInputs(e, type) {

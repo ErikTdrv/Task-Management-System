@@ -1,0 +1,45 @@
+textarea {
+    width: 100%;
+    border: none;
+    padding-top: 12px;
+    line-height: normal;
+    outline: none;
+}
+
+.create_task .special input {
+    height: 20px;
+    padding-left: 0px;
+    padding-right: 20px;
+    width: 90px;
+    font-size: 15px;
+}
+
+.create_task .special {
+    display: flex;
+    margin-left: 20px;
+}
+
+.create_task .special div {
+    width: 45%;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+}
+
+.radio-text {
+    margin-left: 5px;
+    font-size: 14px;
+}
+input[type="radio"]{
+    width: 15px;
+}
+section h1 {
+    font-size: 12px !important;
+    margin: 0px;
+    margin-left: -230px;
+}
+.create_task .add_btn {
+    margin-top: 30px;
+}
