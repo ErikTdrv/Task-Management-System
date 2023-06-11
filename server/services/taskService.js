@@ -55,6 +55,14 @@ const setTaskAsDone = async (taskId, userId) => {
         throw new Error(error);
     }
 }
+const getCompletedTasks = async (userId) => {
+    try {
+        const user = await User.findById(userId);
+        return user.completedTasks
+    } catch (error) {
+        throw new Error(error)
+    }
+}
 module.exports = {
     addTask,
     getAllTasks,
@@ -62,4 +70,5 @@ module.exports = {
     editOneTask, 
     deleteOneTask,
     setTaskAsDone,
+    getCompletedTasks,
 }
