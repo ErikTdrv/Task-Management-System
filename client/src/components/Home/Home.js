@@ -3,10 +3,12 @@ import './Home.css'
 import { useNavigate } from 'react-router-dom';
 import { getAllTasks } from '../../services/taskService';
 import TaskCard from '../TaskCard/TaskCard';
+import TaskOverview from './TaskOverview';
 
 export default function Home() {
     const [allTasks, setAllTasks] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [currentTaskClick, setCurrentTaskClick] = useState();
     const navigate = useNavigate();
     useEffect(() => {
         async function getAllData(){
@@ -58,7 +60,7 @@ export default function Home() {
                                 <h1 className='empty'>No current tasks!</h1>
                             ) : (
                                 allTasks.map((task) => {
-                                    return <TaskCard key={task._id} task={task} />
+                                    return <TaskCard key={task._id} setCurrentTaskClick={setCurrentTaskClick} task={task} />
                                 })
                             )}
                             </>
@@ -69,26 +71,11 @@ export default function Home() {
                         <h1>Task Overview</h1>
                         <span className='info'>Click on task to see information</span>
                         <img src="./tasks2.jpg" />
-                        <div className='task__overview__task'>
-                            <h1>Learn React</h1>
-                            <div className="due">
-                                <i className="fa-solid fa-calendar-days"></i>
-                                <span>12/31/2023</span>
-                            </div>
-                            <div className="description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos rerum vero, culpa quisquam, nemo architecto eius, exercitationem excepturi voluptates reiciendis voluptatem fuga nihil optio? Inventore, beatae? Dolorum voluptas quaerat dolore?
-                            </div>
-                            <div className="buttons">
-                                <button className='deleteBtn'>Delete</button>
-                                <button className='shareBtn'>Share</button>
-                                <button className='editBtn'>Edit</button>
-                                <button className='doneBtn'>Done</button>
-                            </div>
-
-                        </div>
+                        {currentTaskClick && <TaskOverview task={currentTaskClick}/>}
                     </div>
                 </div>
             </div>
         </div>
     );
+    
 }

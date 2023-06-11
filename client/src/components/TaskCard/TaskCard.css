@@ -1,20 +1,44 @@
 .not_important {
-    color: rgb(117, 117, 117);
+  color: rgb(117, 117, 117);
 }
+
 .High {
-    color: red;
+  color: red;
 }
+
 .Medium {
-    color: orange;
+  color: orange;
 }
+
 .Low {
-    color: greenyellow;
+  color: greenyellow;
 }
-span .hours {
-    font-weight: bold;
+
+span.hours {
+  font-weight: bold;
 }
+
 .task .fa-xmark {
-    color: red;
-    font-size: 30px;
-    margin-right: 20px;
+  color: red;
+  font-size: 30px;
+  margin-right: 20px;
+}
+
+.checked_animation {
+  animation-name: checkboxAnimation;
+  animation-duration: 0.5s;
+}
+
+@keyframes checkboxAnimation {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

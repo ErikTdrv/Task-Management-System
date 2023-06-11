@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import './TaskCard.css'
 
-export default function TaskCard({ task, setCurrentTaskClick }) {
+export default function TaskOverview({task}) {
     const [timeLeft, setTimeLeft] = useState('');
     const [hasTimePassed, setHasPassedTime] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
+    
     useEffect(() => {
 
         const targetDate = new Date(`${task.date}T${task.hours}:${task.minutes}:00`);
@@ -35,10 +34,9 @@ export default function TaskCard({ task, setCurrentTaskClick }) {
         }
     }, [task]);
     return (
-        <div onClick={() => setCurrentTaskClick(task)} className={`task ${hasTimePassed ? 'passed_time_div' : ''}`}>
-            <div className="task-info">
-                <div className="name">{task.title}</div>
-                <div className="due">
+        <div className='task__overview__task'>
+            <h1>{task.title}</h1>
+            <div className="due">
                     <i className="fa-solid fa-calendar-days"></i>
                     <span> {task.date}</span>
                 </div>
@@ -50,15 +48,16 @@ export default function TaskCard({ task, setCurrentTaskClick }) {
                     <i className="fa-regular fa-hourglass-half"></i>
                     { !hasTimePassed ? <span>Time left: {timeLeft}</span> : <span className="passed_time">TIME HAS PASSED!!!</span>}
                 </div>
+            <div className="description">
+               {task.description}
             </div>
-            {task.importance == 'Not Important' ? (
-                <div className={`importance not_important`}>{task.importance}</div>
-            ) : (
-                <div className={`importance ${task.importance}`}>{task.importance}</div>
-            )}
-            
-            {hasTimePassed ? <i class="fa-solid fa-xmark"></i> : <input type="checkbox" className={isChecked ? 'checked_animation' : ''} checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} name="" id="" />}
-            
+            <div className="buttons">
+                <button className='deleteBtn'>Delete</button>
+                <button className='shareBtn'>Share</button>
+                <button className='editBtn'>Edit</button>
+                <button className='doneBtn'>Done</button>
+            </div>
+
         </div>
     )
 }

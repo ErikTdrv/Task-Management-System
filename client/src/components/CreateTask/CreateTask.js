@@ -3,7 +3,7 @@ import './CreateTask.css'
 import { addTask } from "../../services/taskService";
 import { useNavigate } from "react-router-dom";
 
-export default function CreateTask() {
+export default function CreateTask({type}) {
     const [taskData, setTaskData] = useState({ title: '', hours: '', minutes: '', date: '', description: '', importance: 'Not Important' })
     const [mainError, setMainError] = useState('');
     const navigate = useNavigate();
@@ -28,7 +28,6 @@ export default function CreateTask() {
         }else {
             setMainError('You must enter Hours or Minutes!')
         }
-        console.log(taskData)
         const task = await addTask(taskData)
         if (task.error) {
             return setMainError(task.error)

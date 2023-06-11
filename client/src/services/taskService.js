@@ -21,3 +21,14 @@ export const getAllTasks = async () => {
     });
     return await response.json();
 }
+export const editTask = async (task) => {
+  const response = await fetch(`${API_URL}/task/${task._id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(task)
+  });
+  return await response.json();
+}
