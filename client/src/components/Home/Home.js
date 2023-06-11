@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Home.css'
 import { useNavigate } from 'react-router-dom';
+import { getAllTasks } from '../../services/taskService';
+import TaskCard from '../TaskCard/TaskCard';
 
 export default function Home() {
+    const [allTasks, setAllTasks] = useState({});
     const navigate = useNavigate();
+    useEffect(() => {
+        async function getAllData(){
+            const tasks = await getAllTasks();
+            if(!tasks?.error){
+                console.log(tasks)
+                setAllTasks(tasks)
+            }
+        }
+        getAllData();
+    }, [])  
+
     return (
         <div className="home__container">
             <div className="info__panel">
@@ -36,17 +50,11 @@ export default function Home() {
                 </div>
                 <div className="tasks">
                     <div className="tasks__panel">
-                        <div className="task">
-                            <div className="task-info">
-                                <div className="name">Learn React</div>
-                                <div className="due">
-                                    <i className="fa-solid fa-calendar-days"></i>
-                                    <span>12/31/2023</span>
-                                </div>
-                                <div className="importance">High</div>
-                            </div>
-                            <input type="checkbox" name="" id="" />
-                        </div>
+                        { !allTasks ? (
+                            <h1 className='empty'>No current tasks!</h1>
+                        ) : (
+                            allTasks.map((task) => <TaskCard task={task} />)
+                        )}
                     </div>
                     <div className="task__overview">
                         <h1>Task Overview</h1>

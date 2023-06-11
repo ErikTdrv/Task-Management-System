@@ -11,3 +11,13 @@ export const addTask = async (task) => {
       });
       return await response.json();
 }
+export const getAllTasks = async () => {
+  const response = await fetch(`${API_URL}/all-tasks`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include'
+    });
+    return await response.json();
+}
