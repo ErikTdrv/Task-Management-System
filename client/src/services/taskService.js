@@ -78,19 +78,27 @@ export const dataTimeValidation = (taskData, setTaskData, setMainError) => {
   const day = String(date.getDate()).padStart(2, '0');
   const formattedDate = `${year}-${month}-${day}`;
 
-  if (taskData.minutes === '') {
-    taskData.minutes = '00';
-  } else if (taskData.hours === '') {
-    taskData.hours = '00';
-  } else if (taskData.minutes < 10) {
-    taskData.minutes = `0${taskData.minutes}`;
-  } else if (taskData.hours < 10) {
+  const hoursLength = taskData.hours.split('').length;
+  const minutesLength = taskData.minutes.split('').length;
+
+  if (taskData.minutes == '0' && taskData.hours == '0' && hoursLength == 1 && minutesLength == 1) {
+    taskData.minutes = '00'
+    taskData.hours = '00'
+    return
+  }
+
+  if (+taskData.hours < 10 && hoursLength == 1) {
     taskData.hours = `0${taskData.hours}`;
-  } else {
+  }
+  if (taskData.minutes < 10 && minutesLength == 1) {
+    taskData.minutes = `0${taskData.minutes}`;
+  }
+
+  if (taskData.minutes == '' && taskData.hours == '') {
     setMainError('You must enter Hours or Minutes!');
   }
 
-  if (taskData.date === '' && (taskData.minutes !== '' || taskData.hours !== '')) {
+  if (taskData.date == '' && (taskData.minutes !== '' || taskData.hours !== '')) {
     taskData.date = formattedDate;
   } else {
     setMainError('You must enter Hours or Minutes!');
