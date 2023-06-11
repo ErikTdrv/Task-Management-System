@@ -1,4 +1,4 @@
-const { addTask } = require('../services/taskService');
+const { addTask, getAllTasks } = require('../services/taskService');
 
 const router = require('express').Router();
     
@@ -11,6 +11,15 @@ const router = require('express').Router();
             res.status(201).json(task);
         } catch (error) {
             console.log(error)
+            res.status(400).json({error: error.message})
+        }
+    })
+    router.get('/tasks', async (req, res) => {
+        const userId = req.user._id;
+        try {
+            const tasks = await getAllTasks(userId);
+            res.status(201).json(tasks);
+        } catch (error) {
             res.status(400).json({error: error.message})
         }
     })
