@@ -10,7 +10,11 @@ export default function TaskCard({task}) {
                     <i className="fa-solid fa-calendar-days"></i>
                     <span>{task.date}</span>
                 </div>
-                <div className="importance">{task.importance}</div>
+                { task.importance == 'Not Important' ? (
+                    <div className={`importance not_important`}>{task.importance}</div>
+                ) : (
+                    <div className={`importance ${task.importance}`}>{task.importance}</div>
+                )}
             </div>
             <input type="checkbox" name="" id="" />
         </div>

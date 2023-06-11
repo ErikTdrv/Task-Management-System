@@ -1,0 +1,12 @@
+.not_important {
+    color: rgb(117, 117, 117);
+}
+.High {
+    color: red;
+}
+.Medium {
+    color: orange;
+}
+.Low {
+    color: greenyellow;
+}

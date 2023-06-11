@@ -50,10 +50,13 @@ export default function Home() {
                 </div>
                 <div className="tasks">
                     <div className="tasks__panel">
-                        { !allTasks ? (
+                        { allTasks.length == 0 ? (
                             <h1 className='empty'>No current tasks!</h1>
                         ) : (
-                            allTasks.map((task) => <TaskCard task={task} />)
+                            
+                            allTasks.map((task) => {
+                                return <TaskCard task={task} />
+                            })
                         )}
                     </div>
                     <div className="task__overview">
