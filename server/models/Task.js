@@ -25,6 +25,10 @@ const taskSchema = new mongoose.Schema({
         minlength: [20, 'Description must have at least 20 characters!'],
         maxlength: [300, 'Description must not have more than 300 characters!']
     },
+    importance: {
+        required: true,
+        type: String,
+    },
     owner: {
         type: mongoose.Types.ObjectId,
         ref: "User",

@@ -15,8 +15,7 @@ const addTask = async (taskData, userId) => {
 const getAllTasks = async (userId) => {
     try {
         const tasks = await User.findById(userId).populate('addedTasks');
-        console.log(tasks)
-        return tasks
+        return tasks.addedTasks
     } catch (error) {
         throw new Error(error)
     }
