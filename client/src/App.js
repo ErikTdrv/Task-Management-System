@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 import InitialPage from './components/InitialPage/InitialPage';
 import Home from './components/Home/Home';
 import CreateTask from './components/CreateTask/CreateTask';
+import CompletedTasks from './components/CompletedTasks/CompletedTasks';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/add-task" element={<CreateTask />} />
       <Route path="/add-task/:taskId" element={<CreateTask mode={'edit'}/>} />
+      <Route path="/completed-tasks" element={<CompletedTasks/>} />
 
     </Routes>
   );

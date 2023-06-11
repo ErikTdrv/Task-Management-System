@@ -316,3 +316,7 @@
 .done_div {
     background-color: green;
 }
+a {
+    text-decoration: none;
+    color: inherit;
+  }

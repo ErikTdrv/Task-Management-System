@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { deleteTask, getAllTasks, setTaskAsDone } from '../../services/taskService';
 import TaskCard from '../TaskCard/TaskCard';
 import TaskOverview from './TaskOverview';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
     const [allTasks, setAllTasks] = useState({});
@@ -31,11 +32,11 @@ export default function Home() {
         }
     };
     const setDoneTask = async (taskId) => {
-            await setTaskAsDone(taskId)
-            setAllTasks((prevTasks) =>
-                prevTasks.filter((task) => task._id !== taskId)
-            );
-            setCurrentTaskClick();
+        await setTaskAsDone(taskId)
+        setAllTasks((prevTasks) =>
+            prevTasks.filter((task) => task._id !== taskId)
+        );
+        setCurrentTaskClick();
 
     }
     return (
@@ -46,10 +47,12 @@ export default function Home() {
                         <i className="fa-solid fa-list-check"></i>
                         <h1>Tasks</h1>
                     </div>
-                    <div>
-                        <i className="fa-solid fa-check"></i>
-                        <h1>Completed Tasks</h1>
-                    </div>
+                    <Link to={'/completed-tasks'}>
+                        <div>
+                            <i className="fa-solid fa-check"></i>
+                            <h1>Completed Tasks</h1>
+                        </div>
+                    </Link>
                     <div>
                         <i className="fa-solid fa-file-export"></i>
                         <h1>Download Tasks</h1>
@@ -87,7 +90,7 @@ export default function Home() {
                         <h1>Task Overview</h1>
                         <span className='info'>Click on task to see information</span>
                         <img src="./tasks2.jpg" />
-                        {currentTaskClick && <TaskOverview task={currentTaskClick} deleteTaskHandler={deleteTaskHandler} setDoneTask={setDoneTask}/>}
+                        {currentTaskClick && <TaskOverview task={currentTaskClick} deleteTaskHandler={deleteTaskHandler} setDoneTask={setDoneTask} />}
                     </div>
                 </div>
             </div>
