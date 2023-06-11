@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { calculateTime, deleteTask } from "../../services/taskService";
 import { Link } from 'react-router-dom';
 
-export default function TaskOverview({ task, deleteTaskHandler }) {
+export default function TaskOverview({ task, deleteTaskHandler, setDoneTask }) {
     const [timeLeft, setTimeLeft] = useState('');
     const [hasTimePassed, setHasPassedTime] = useState(false);
 
@@ -34,7 +34,7 @@ export default function TaskOverview({ task, deleteTaskHandler }) {
                 <Link to={`/add-task/${task._id}`}>
                     <button className='editBtn'>Edit</button>
                 </Link>
-                <button className='doneBtn'>Done</button>
+                <button className='doneBtn' onClick={() => setDoneTask(task._id)}>Done</button>
             </div>
 
         </div>

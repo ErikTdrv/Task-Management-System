@@ -44,10 +44,22 @@ const deleteOneTask = async (taskId) => {
         throw new Error(error);
     }
 }
+const setTaskAsDone = async (taskId, userId) => {
+    try {
+        await User.findByIdAndUpdate(userId, {
+            $pull: { addedTasks: taskId },
+            $push: { completedTasks: taskId }
+          });
+        await Task.findByIdAndUpdate(taskId, {isDone: true});
+    } catch (error) {
+        throw new Error(error);
+    }
+}
 module.exports = {
     addTask,
     getAllTasks,
     getOneTask,
     editOneTask, 
     deleteOneTask,
+    setTaskAsDone,
 }

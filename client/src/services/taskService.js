@@ -41,6 +41,16 @@ export const getOneTask = async (taskId) => {
   });
   return await response.json();
 }
+export const setTaskAsDone = async (taskId) => {
+  const response = await fetch(`${API_URL}/task/${taskId}/done`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include'
+  });
+  return await response.json();
+}
 export const editTask = async (task) => {
   const response = await fetch(`${API_URL}/task/${task._id}`, {
     method: 'PUT',

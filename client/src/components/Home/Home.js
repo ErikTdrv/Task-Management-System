@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Home.css'
 import { useNavigate } from 'react-router-dom';
-import { deleteTask, getAllTasks } from '../../services/taskService';
+import { deleteTask, getAllTasks, setTaskAsDone } from '../../services/taskService';
 import TaskCard from '../TaskCard/TaskCard';
 import TaskOverview from './TaskOverview';
 
@@ -30,6 +30,14 @@ export default function Home() {
             setCurrentTaskClick();
         }
     };
+    const setDoneTask = async (taskId) => {
+            await setTaskAsDone(taskId)
+            setAllTasks((prevTasks) =>
+                prevTasks.filter((task) => task._id !== taskId)
+            );
+            setCurrentTaskClick();
+
+    }
     return (
         <div className="home__container">
             <div className="info__panel">
@@ -79,7 +87,7 @@ export default function Home() {
                         <h1>Task Overview</h1>
                         <span className='info'>Click on task to see information</span>
                         <img src="./tasks2.jpg" />
-                        {currentTaskClick && <TaskOverview task={currentTaskClick} deleteTaskHandler={deleteTaskHandler} />}
+                        {currentTaskClick && <TaskOverview task={currentTaskClick} deleteTaskHandler={deleteTaskHandler} setDoneTask={setDoneTask}/>}
                     </div>
                 </div>
             </div>
