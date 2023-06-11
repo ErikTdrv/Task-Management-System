@@ -57,13 +57,14 @@ export const calculateTime = (task, setTimeLeft, setHasPassedTime) => {
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
     );
     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-    if (days > 1) {
+    if (days >= 1) {
       setTimeLeft(`${days}d ${hours}h`);
     } else if (days == 0 && hours > 1) {
       setTimeLeft(`${hours}h ${minutes}m`);
     } else if (days == 0 && hours < 1) {
       setTimeLeft(`${minutes}m`);
     }
+
     setHasPassedTime(false)
   } else {
     setTimeLeft('Time has passed!');
@@ -71,23 +72,27 @@ export const calculateTime = (task, setTimeLeft, setHasPassedTime) => {
   }
 }
 export const dataTimeValidation = (taskData, setTaskData, setMainError) => {
-  const date = new Date(); // Assuming you have a Date object
-
+  const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   const formattedDate = `${year}-${month}-${day}`;
 
-  if (taskData.minutes == '') {
-    setTaskData({ ...taskData, minutes: '00' })
-  } else if (taskData.hours == '') {
-    setTaskData({ ...taskData, hours: '00' })
+  if (taskData.minutes === '') {
+    taskData.minutes = '00';
+  } else if (taskData.hours === '') {
+    taskData.hours = '00';
+  } else if (taskData.minutes < 10) {
+    taskData.minutes = `0${taskData.minutes}`;
+  } else if (taskData.hours < 10) {
+    taskData.hours = `0${taskData.hours}`;
   } else {
-    setMainError('You must enter Hours or Minutes!')
+    setMainError('You must enter Hours or Minutes!');
   }
-  if (taskData.date == '' && (taskData.minutes != '' || taskData.hours != '')) {
-    setTaskData({ ...taskData, date: formattedDate })
+
+  if (taskData.date === '' && (taskData.minutes !== '' || taskData.hours !== '')) {
+    taskData.date = formattedDate;
   } else {
-    setMainError('You must enter Hours or Minutes!')
+    setMainError('You must enter Hours or Minutes!');
   }
-}
+};

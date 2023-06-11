@@ -51,7 +51,7 @@ export default function CreateTask({ mode }) {
                             <i className="fa-solid fa-clock"></i>
                             <input type="number" placeholder='Hours'
                                 onChange={(e) => setTaskData({ ...taskData, hours: e.target.value })}
-                                max={24}
+                                max={23}
                                 min={0}
                                 value={taskData.hours}
                             />
@@ -61,7 +61,7 @@ export default function CreateTask({ mode }) {
                             <input type="number" placeholder='Minutes'
                                 onChange={(e) => setTaskData({ ...taskData, minutes: e.target.value })}
                                 step={5}
-                                max={60}
+                                max={55}
                                 min={0}
                                 value={taskData.minutes}
                             />

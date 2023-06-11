@@ -33,7 +33,7 @@ export default function TaskCard({ task, setCurrentTaskClick }) {
                 <div className={`importance ${task.importance}`}>{task.importance}</div>
             )}
             
-            {hasTimePassed ? <i class="fa-solid fa-xmark"></i> : <input type="checkbox" className={isChecked ? 'checked_animation' : ''} checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} name="" id="" />}
+            {hasTimePassed ? <i className="fa-solid fa-xmark"></i> : <input type="checkbox" className={isChecked ? 'checked_animation' : ''} checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} name="" id="" />}
             
         </div>
     )

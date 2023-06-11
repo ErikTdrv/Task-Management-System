@@ -8,7 +8,7 @@ export default function TaskOverview({ task }) {
 
     useEffect(() => {
         calculateTime(task, setTimeLeft, setHasPassedTime)
-
+        
     }, [task]);
     return (
         <div className='task__overview__task'>
