@@ -48,3 +48,10 @@ section div {
     margin-top: 10px;
     margin-left: 25px;
 }
+.special div i {
+    margin-top: 0px !important;
+}
+.create_task .authentication_form .divs i {
+    margin: 0px 10px;
+    margin-top: 15px;
+}

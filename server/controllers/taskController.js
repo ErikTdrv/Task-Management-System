@@ -14,6 +14,7 @@ router.get('/all-tasks', async (req, res) => {
 router.post('/add-task', async (req, res) => {
     const body = req.body;
     body.owner = req.user._id;
+    console.log(body)
     try {
         const task = await addTask(body, req.user._id);
 

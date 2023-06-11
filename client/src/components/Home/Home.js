@@ -6,6 +6,7 @@ import TaskCard from '../TaskCard/TaskCard';
 
 export default function Home() {
     const [allTasks, setAllTasks] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
     useEffect(() => {
         async function getAllData(){
@@ -13,6 +14,7 @@ export default function Home() {
             if(!tasks?.error){
                 console.log(tasks)
                 setAllTasks(tasks)
+                setIsLoading(false)
             }
         }
         getAllData();
@@ -50,14 +52,18 @@ export default function Home() {
                 </div>
                 <div className="tasks">
                     <div className="tasks__panel">
-                        { allTasks.length == 0 ? (
-                            <h1 className='empty'>No current tasks!</h1>
-                        ) : (
-                            
-                            allTasks.map((task) => {
-                                return <TaskCard task={task} />
-                            })
+                        { !isLoading && (
+                            <>
+                            { allTasks.length == 0 ? (
+                                <h1 className='empty'>No current tasks!</h1>
+                            ) : (
+                                allTasks.map((task) => {
+                                    return <TaskCard key={task._id} task={task} />
+                                })
+                            )}
+                            </>
                         )}
+                        
                     </div>
                     <div className="task__overview">
                         <h1>Task Overview</h1>

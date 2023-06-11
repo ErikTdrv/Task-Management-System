@@ -4,15 +4,35 @@ import { addTask } from "../../services/taskService";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateTask() {
-    const [taskData, setTaskData] = useState({title: '', hours: '', minutes: '', date: '', description: '', importance: 'Not Important'})
+    const [taskData, setTaskData] = useState({ title: '', hours: '', minutes: '', date: '', description: '', importance: 'Not Important' })
     const [mainError, setMainError] = useState('');
     const navigate = useNavigate();
-    async function addTaskHandler(e){
+    async function addTaskHandler(e) {
         e.preventDefault();
-        const task = await addTask(taskData)
-        if(task.error){
-            return setMainError(task.error)
+        const date = new Date(); // Assuming you have a Date object
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+        
+        if (taskData.minutes == '') {
+            setTaskData({ ...taskData, minutes: '00' })
+        } else if (taskData.hours == '') {
+            setTaskData({ ...taskData, hours: '00' })
+        } else {
+            setMainError('You must enter Hours or Minutes!')
+        }
+        if (taskData.date == '' && (taskData.minutes != '' || taskData.hours != '')) {
+            setTaskData({ ...taskData, date: formattedDate })
         }else {
+            setMainError('You must enter Hours or Minutes!')
+        }
+        console.log(taskData)
+        const task = await addTask(taskData)
+        if (task.error) {
+            return setMainError(task.error)
+        } else {
             navigate('/home')
             return setMainError('')
         }
@@ -66,26 +86,26 @@ export default function CreateTask() {
                         <div>
                             <label className="radio-label">
                                 <input type="radio" name="importance"
-                                onChange={(e) => setTaskData({...taskData, importance:'High'})}
+                                    onChange={(e) => setTaskData({ ...taskData, importance: 'High' })}
                                 />
                                 <span className="radio-text">High</span>
                             </label>
                             <label className="radio-label">
                                 <input type="radio" name="importance"
-                                onChange={(e) => setTaskData({...taskData, importance:'Medium'})}
+                                    onChange={(e) => setTaskData({ ...taskData, importance: 'Medium' })}
                                 />
                                 <span className="radio-text">Medium</span>
                             </label>
                             <label className="radio-label">
                                 <input type="radio" name="importance"
-                                onChange={(e) => setTaskData({...taskData, importance: 'Low'})}
+                                    onChange={(e) => setTaskData({ ...taskData, importance: 'Low' })}
                                 />
                                 <span className="radio-text">Low</span>
                             </label>
                             <label className="radio-label">
                                 <input type="radio" name="importance"
-                                onChange={(e) => setTaskData({...taskData, importance: 'Not Important'})}
-                                checked={taskData.importance === "Not Important"}
+                                    onChange={(e) => setTaskData({ ...taskData, importance: 'Not Important' })}
+                                    checked={taskData.importance === "Not Important"}
                                 />
                                 <span className="radio-text">Not Important</span>
                             </label>
