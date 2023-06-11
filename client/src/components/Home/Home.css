@@ -1,0 +1,229 @@
+.home__container {
+    width: 100%;
+    height: 100vh;
+    /* background-color: rgb(117, 193, 255); */
+    display: flex;
+}
+
+.info__panel {
+    flex-basis: 13%;
+    background-color: rgb(204, 204, 204);
+    background-color: rgb(73, 173, 255);
+}
+
+.info__panel .options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.info__panel .options div h1 {
+    margin: 10px;
+    font-size: 14px;
+}
+
+.info__panel .options div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 7px 40px;
+    border-radius: 20px;
+    /* background-color: red; */
+    margin: 5px;
+}
+
+.info__panel .options div:hover {
+    background-color: rgb(155, 155, 155);
+    background-color: rgb(19, 158, 252);
+
+}
+
+.main__panel {
+    flex-basis: 87%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main__info__panel {
+    position: relative;
+    flex-basis: 13%;
+    background-color: rgb(235, 235, 235);
+    border-bottom: 2px solid rgb(180, 180, 180);
+}
+.task__overview h1 {
+    margin: 0px;
+}
+.task__overview .info {
+    margin-top: -40px;
+    font-size: 14px;
+    font-style: italic;
+    color: #888;
+}
+.main__panel .tasks {
+    flex-basis: 87%;
+}
+
+.add_task {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(112, 226, 255);
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_task:hover {
+    background-color: rgb(0, 165, 206);
+}
+
+.main__info__panel h1 {
+    margin: 10px;
+    margin-top: 25px;
+    margin-left: 50px;
+}
+
+.switchable {
+    /* padding-top: 10px; */
+    position: absolute;
+    bottom: -2px;
+    margin-left: 0px;
+    width: 350px;
+    display: flex;
+}
+
+.switchable button {
+    padding: 10px 35px;
+    border: none;
+    border-bottom: 2px solid rgb(180, 180, 180);
+    background-color: rgb(235, 235, 235);
+
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+.switchable button:hover {
+    border-bottom: 2px solid rgb(255, 78, 78);
+}
+
+.tasks {
+    display: flex;
+}
+
+.tasks__panel {
+    flex-basis: 70%;
+    max-height: 87vh;
+    overflow-y: auto;
+}
+
+.task__overview {
+    flex-basis: 30%;
+    /* background-color: red; */
+    border-left: 2px solid rgb(180, 180, 180);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.task__overview__task {
+    margin-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.task__overview img {
+    width: 100%;
+    height: 40%;
+}
+
+.task {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 10px;
+    box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.due i {
+    margin-right: 5px;
+}
+.due {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.task .name {
+    font-weight: bold;
+    /* margin-bottom: 5px; */
+}
+
+.due {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.task .importance {
+    font-size: 14px;
+    color: #ff9800;
+    font-weight: bold;
+}
+
+.task:hover {
+    background-color: #dbdbdb;
+}
+
+.task input[type="checkbox"] {
+    width: 25px;
+    background-color: green;
+    color: green;
+    outline: none;
+}
+
+.task input[type="checkbox"]:checked {
+    background-color: greenyellow;
+    border-color: greenyellow;
+}
+.description {
+    text-align: center;
+}
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 25px;
+}
+.buttons button {
+    margin: 5px;
+    padding: 10px 25px;
+    border-radius: 20px;
+    border: none;
+    font-weight: bold;
+}
+.doneBtn {
+    background-color: rgb(0, 230, 0);
+}
+.doneBtn:hover{
+    background-color: rgb(0, 148, 0);
+}
+.deleteBtn {
+    background-color: rgb(255, 88, 88);
+}
+.deleteBtn:hover{
+    background-color: rgb(255, 0, 0);
+}
+.shareBtn, .editBtn {
+    background-color: rgb(66, 179, 255);
+}
+.shareBtn:hover, .editBtn:hover {
+    background-color: rgb(0, 153, 255);
+}
