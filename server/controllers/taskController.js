@@ -1,4 +1,4 @@
-const { addTask, getAllTasks } = require('../services/taskService');
+const { addTask, getAllTasks, getOneTask, editOneTask } = require('../services/taskService');
 
 const router = require('express').Router();
 
@@ -11,10 +11,27 @@ router.get('/all-tasks', async (req, res) => {
         res.status(400).json({ error: error.message })
     }
 })
+router.get('/task/:taskId', async (req, res) => {
+    const taskId = req.params.taskId;
+    try {
+        const task = await getOneTask(taskId);
+        res.status(201).json(task);
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+})
+router.put('/task/:taskId', async (req, res) => {
+    const body = req.body;
+    try {
+        const task = await editOneTask(body);
+        res.status(201).json(task);
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+})
 router.post('/add-task', async (req, res) => {
     const body = req.body;
     body.owner = req.user._id;
-    console.log(body)
     try {
         const task = await addTask(body, req.user._id);
 

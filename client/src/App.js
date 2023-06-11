@@ -15,6 +15,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/home" element={<Home />} />
       <Route path="/add-task" element={<CreateTask />} />
+      <Route path="/add-task/:taskId" element={<CreateTask mode={'edit'}/>} />
 
     </Routes>
   );

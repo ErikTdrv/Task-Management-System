@@ -12,16 +12,33 @@ const addTask = async (taskData, userId) => {
         throw new Error(error);
     }
 };
-const getAllTasks = async (userId) => {
+const getAllTasks = async (taskId) => {
     try {
-        const tasks = await User.findById(userId).populate('addedTasks');
+        const tasks = await User.findById(taskId).populate('addedTasks');
         return tasks.addedTasks
     } catch (error) {
         throw new Error(error)
     }
 }
-
+const getOneTask = async (taskId) => {
+    try {
+        const task = await Task.findById(taskId).populate('owner');
+        return task
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+const editOneTask = async (taskData) => {
+    try {
+        const task = await Task.findByIdAndUpdate(taskData._id, taskData)
+        return task
+    } catch (error) {
+        throw new Error(error);
+    }
+}
 module.exports = {
     addTask,
     getAllTasks,
+    getOneTask,
+    editOneTask, 
 }

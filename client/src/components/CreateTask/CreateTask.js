@@ -1,34 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './CreateTask.css'
-import { addTask } from "../../services/taskService";
-import { useNavigate } from "react-router-dom";
+import { addTask, dataTimeValidation, editTask, getOneTask } from "../../services/taskService";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-export default function CreateTask({type}) {
+export default function CreateTask({ mode }) {
     const [taskData, setTaskData] = useState({ title: '', hours: '', minutes: '', date: '', description: '', importance: 'Not Important' })
     const [mainError, setMainError] = useState('');
     const navigate = useNavigate();
+    const { taskId } = useParams();
+    useEffect(() => {
+        async function gettingTask(){
+            if (mode == 'edit') {
+                const task = await getOneTask(taskId)
+                setTaskData(task);
+            }
+        }
+        gettingTask();
+    }, [])
     async function addTaskHandler(e) {
         e.preventDefault();
-        const date = new Date(); // Assuming you have a Date object
-
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
-        
-        if (taskData.minutes == '') {
-            setTaskData({ ...taskData, minutes: '00' })
-        } else if (taskData.hours == '') {
-            setTaskData({ ...taskData, hours: '00' })
-        } else {
-            setMainError('You must enter Hours or Minutes!')
-        }
-        if (taskData.date == '' && (taskData.minutes != '' || taskData.hours != '')) {
-            setTaskData({ ...taskData, date: formattedDate })
+        dataTimeValidation(taskData, setTaskData, setMainError);
+        let task;
+        if(mode == 'edit'){
+            task = await editTask(taskData)
         }else {
-            setMainError('You must enter Hours or Minutes!')
+            task = await addTask(taskData)
         }
-        const task = await addTask(taskData)
         if (task.error) {
             return setMainError(task.error)
         } else {
@@ -46,6 +43,7 @@ export default function CreateTask({type}) {
                         <i className="fa-solid fa-magnifying-glass"></i>
                         <input type="text" placeholder='Title...'
                             onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}
+                            value={taskData.title}
                         />
                     </div>
                     <div className="special">
@@ -55,6 +53,7 @@ export default function CreateTask({type}) {
                                 onChange={(e) => setTaskData({ ...taskData, hours: e.target.value })}
                                 max={24}
                                 min={0}
+                                value={taskData.hours}
                             />
                         </div>
                         <div className="hours divs">
@@ -64,6 +63,7 @@ export default function CreateTask({type}) {
                                 step={5}
                                 max={60}
                                 min={0}
+                                value={taskData.minutes}
                             />
                         </div>
                     </div>
@@ -71,6 +71,7 @@ export default function CreateTask({type}) {
                         <i className="fa-solid fa-calendar-days"></i>
                         <input type="date" placeholder='Date...'
                             onChange={(e) => setTaskData({ ...taskData, date: e.target.value })}
+                            value={taskData.date}
                         />
                     </div>
                     <div className="description divs">
@@ -78,6 +79,7 @@ export default function CreateTask({type}) {
                         <textarea placeholder='Description...'
                             onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}
                             maxLength={300}
+                            value={taskData.description}
                         />
                     </div>
                     <section>
@@ -86,18 +88,21 @@ export default function CreateTask({type}) {
                             <label className="radio-label">
                                 <input type="radio" name="importance"
                                     onChange={(e) => setTaskData({ ...taskData, importance: 'High' })}
+                                    checked={taskData.importance === "High"}
                                 />
                                 <span className="radio-text">High</span>
                             </label>
                             <label className="radio-label">
                                 <input type="radio" name="importance"
                                     onChange={(e) => setTaskData({ ...taskData, importance: 'Medium' })}
+                                    checked={taskData.importance === "Medium"}
                                 />
                                 <span className="radio-text">Medium</span>
                             </label>
                             <label className="radio-label">
                                 <input type="radio" name="importance"
                                     onChange={(e) => setTaskData({ ...taskData, importance: 'Low' })}
+                                    checked={taskData.importance === "Low"}
                                 />
                                 <span className="radio-text">Low</span>
                             </label>

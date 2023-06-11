@@ -1,38 +1,14 @@
 import React, { useEffect, useState } from "react";
 import './TaskCard.css'
+import { calculateTime } from "../../services/taskService";
 
 export default function TaskCard({ task, setCurrentTaskClick }) {
     const [timeLeft, setTimeLeft] = useState('');
     const [hasTimePassed, setHasPassedTime] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     useEffect(() => {
+        calculateTime(task, setTimeLeft, setHasPassedTime)
 
-        const targetDate = new Date(`${task.date}T${task.hours}:${task.minutes}:00`);
-        const now = new Date();
-
-        const timeDifference = targetDate - now;
-
-        if (timeDifference > 0) {
-            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor(
-                (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
-            const minutes = Math.floor(
-                (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-            );
-            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-            if(days > 1){
-                setTimeLeft(`${days}d ${hours}h`);
-            }else if(days == 0 && hours > 1){
-                setTimeLeft(`${hours}h ${minutes}m`);
-            }else if(days == 0 && hours < 1){
-                setTimeLeft(`${minutes}m`);
-            }
-            setHasPassedTime(false)
-        } else {
-            setTimeLeft('Time has passed!');
-            setHasPassedTime(true)
-        }
     }, [task]);
     return (
         <div onClick={() => setCurrentTaskClick(task)} className={`task ${hasTimePassed ? 'passed_time_div' : ''}`}>
