@@ -2,16 +2,22 @@ import React, { useEffect, useState } from "react";
 import './TaskCard.css'
 import { calculateTime } from "../../services/taskService";
 
-export default function TaskCard({ task, setCurrentTaskClick, mode }) {
+export default function TaskCard({ task, setCurrentTaskClick, setDoneTask }) {
     const [timeLeft, setTimeLeft] = useState('');
     const [hasTimePassed, setHasPassedTime] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     useEffect(() => {
         calculateTime(task, setTimeLeft, setHasPassedTime)
-        if(mode === 'view'){
+        if(task.isDone){
             setIsChecked(true)
         }
     }, [task]);
+    function checkTask(e){
+        if(e.target.checked){
+            console.log(e.target.checked)
+            setDoneTask(task._id);
+        }
+    }
     return (
         <div onClick={() => setCurrentTaskClick(task)} className={`task ${hasTimePassed ? 'passed_time_div' : ''}`}>
             <div className="task-info">
@@ -26,7 +32,7 @@ export default function TaskCard({ task, setCurrentTaskClick, mode }) {
                 </div>
                 <div className="hours_left">
                     <i className="fa-regular fa-hourglass-half"></i>
-                    {mode == 'view' ? <span>TASK IS COMPLETED</span> : (
+                    {task.isDone ? <span>TASK IS COMPLETED</span> : (
                         <>
                             {!hasTimePassed ? <span>Time left: {timeLeft}</span> : <span className="passed_time">TIME HAS PASSED!!!</span>}
                         </>
@@ -39,7 +45,7 @@ export default function TaskCard({ task, setCurrentTaskClick, mode }) {
                 <div className={`importance ${task.importance}`}>{task.importance}</div>
             )}
         
-            {hasTimePassed && mode !== 'view'? <i className="fa-solid fa-xmark"></i> : <input disabled={mode == 'view'} type="checkbox" className={isChecked ? 'checked_animation' : ''} checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} name="" id="" />}
+            <input disabled={task.isDone} type="checkbox" className={isChecked ? 'checked_animation' : ''} checked={isChecked} onChange={(e) => checkTask(e)} name="" id="" />
 
         </div>
     )

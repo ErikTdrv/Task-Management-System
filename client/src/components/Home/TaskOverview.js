@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { calculateTime, deleteTask } from "../../services/taskService";
 import { Link } from 'react-router-dom';
 
-export default function TaskOverview({ task, deleteTaskHandler, setDoneTask, mode }) {
+export default function TaskOverview({ task, deleteTaskHandler, setDoneTask }) {
     const [timeLeft, setTimeLeft] = useState('');
     const [hasTimePassed, setHasPassedTime] = useState(false);
 
@@ -23,12 +23,16 @@ export default function TaskOverview({ task, deleteTaskHandler, setDoneTask, mod
             </div>
             <div className="hours_left">
                 <i className="fa-regular fa-hourglass-half"></i>
-                {!hasTimePassed ? <span>Time left: {timeLeft}</span> : <span className="passed_time">TIME HAS PASSED!!!</span>}
+                {task.isDone ? <span>TASK IS COMPLETED</span> : (
+                        <>
+                            {!hasTimePassed ? <span>Time left: {timeLeft}</span> : <span className="passed_time">TIME HAS PASSED!!!</span>}
+                        </>
+                    )}
             </div>
             <div className="description">
                 {task.description}
             </div>
-            {!mode === 'edit' && (
+            {!task.isDone && (
                 <div className="buttons">
                     <button onClick={() => deleteTaskHandler(task._id)} className='deleteBtn'>Delete</button>
                     <button className='shareBtn'>Share</button>

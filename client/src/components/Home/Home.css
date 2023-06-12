@@ -114,7 +114,10 @@
 .switchable button:hover {
     border-bottom: 2px solid rgb(255, 78, 78);
 }
+.clicked_filter {
+    border-bottom: 2px solid rgb(255, 78, 78) !important;
 
+}
 .tasks {
     display: flex;
 }
@@ -303,19 +306,6 @@
 
 }
 
-.delete-animation {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.delete-animation.fade-out {
-    opacity: 0;
-    transform: translateY(-20px);
-}
-.done_div {
-    background-color: green;
-}
 a {
     text-decoration: none;
     color: inherit;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function InfoPanel() {
+export default function InfoPanel({handleDownload}) {
     const navigate = useNavigate()
     return (
         <div className="info__panel">
@@ -18,9 +18,13 @@ export default function InfoPanel() {
                             <h1>Completed Tasks</h1>
                         </div>
                     </Link>
-                    <div>
+                    <div onClick={() => handleDownload('tasks')}>
                         <i className="fa-solid fa-file-export"></i>
                         <h1>Download Tasks</h1>
+                    </div>
+                    <div onClick={() => handleDownload('completed')}>
+                        <i className="fa-solid fa-file-export"></i>
+                        <h1>Download Completed Tasks</h1>
                     </div>
             </div>
             <div className="add_task" onClick={() => navigate('/add-task')}>

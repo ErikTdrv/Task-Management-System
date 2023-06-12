@@ -111,6 +111,17 @@ export const dataTimeValidation = (taskData, setTaskData, setMainError) => {
   const hoursLength = taskData.hours.split('').length;
   const minutesLength = taskData.minutes.split('').length;
 
+  if (taskData.minutes == '' && hoursLength == 2) {
+    return taskData.minutes = '00'
+  } else if (taskData.hours == '' && minutesLength == 2) {
+    return taskData.hours = '00'
+  } else if (taskData.minutes == '' && hoursLength == 1) {
+    taskData.minutes = '00'
+    return taskData.hours = `0${taskData.hours}`;
+  } else if (taskData.hours == '' && minutesLength == 1) {
+    taskData.hours = '00'
+    return taskData.minutes = `0${taskData.minutes}`;
+  }
   if (taskData.minutes == '0' && taskData.hours == '0' && hoursLength == 1 && minutesLength == 1) {
     taskData.minutes = '00'
     taskData.hours = '00'
@@ -134,3 +145,11 @@ export const dataTimeValidation = (taskData, setTaskData, setMainError) => {
     setMainError('You must enter Hours or Minutes!');
   }
 };
+export function getTodayDate() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
+  return formattedDate;
+}
