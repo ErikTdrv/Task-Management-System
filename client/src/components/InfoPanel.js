@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from "../services/userService";
+import { useSelector } from "react-redux";
 
 export default function InfoPanel({ handleDownload }) {
+    const user = useSelector(state => state.user.user);
+    const [userData, setUserData] = useState();
     const navigate = useNavigate()
-    async function logoutHandler(){
+    useEffect(() => {
+        setUserData(user)
+    }, [user])
+    async function logoutHandler() {
         const user = await logout();
-        if(!user.error){
+        if (!user.error) {
             navigate('/')
         }
     }
     return (
         <div className="info__panel">
             <div className="options">
+                <Link to={'/profile'}>
+                    <div>
+                        <img src={user?.profilePicture} alt="user-picture" />
+                        <h1>{user?.username}</h1>
+                    </div>
+                </Link>
                 <Link to={'/home'}>
                     <div>
                         <i className="fa-solid fa-list-check"></i>

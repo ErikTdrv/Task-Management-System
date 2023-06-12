@@ -10,12 +10,13 @@ import CompletedTasks from './components/CompletedTasks/CompletedTasks';
 import { useEffect } from 'react';
 import { getUser } from './services/userService';
 import { useDispatch } from 'react-redux';
+import Profile from './components/Profile/Profile';
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    async function gettingUser(){
+    async function gettingUser() {
       const user = await getUser();
       if (user?._id) {
         navigate('/home');
@@ -33,8 +34,9 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/home" element={<Home />} />
       <Route path="/add-task" element={<CreateTask />} />
-      <Route path="/add-task/:taskId" element={<CreateTask mode={'edit'}/>} />
-      <Route path="/completed-tasks" element={<CompletedTasks/>} />
+      <Route path="/add-task/:taskId" element={<CreateTask mode={'edit'} />} />
+      <Route path="/completed-tasks" element={<CompletedTasks />} />
+      <Route path="/profile" element={<Profile />} />
 
     </Routes>
   );
