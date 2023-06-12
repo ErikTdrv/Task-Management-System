@@ -23,6 +23,9 @@ const createAccessToken = (user) => {
         cookie
     };
 }
+const getUser = async (id) => {
+    return await User.findById(id).populate('addedTasks').populate('completedTasks');
+}
 const register = async (data) => {
     try {
         const existingEmail = await User.findOne({ email: data.email })
@@ -62,5 +65,6 @@ const login = async (data) => {
 module.exports = {
     register,
     login, 
-    validateToken
+    validateToken,
+    getUser
 }

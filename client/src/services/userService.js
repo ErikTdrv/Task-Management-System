@@ -1,5 +1,16 @@
 const API_URL = 'http://localhost:7070';
 
+export const getUser = async () => {
+  const response = await fetch(`${API_URL}/user`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  });
+  return await response.json();
+
+}
 export const register = async (userData) => {
   const response = await fetch(`${API_URL}/register`, {
     method: 'POST',

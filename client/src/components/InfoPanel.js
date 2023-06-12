@@ -34,7 +34,7 @@ export default function InfoPanel({ handleDownload }) {
                     <h1>Download Completed Tasks</h1>
                 </div>
                 <div onClick={logoutHandler}>
-                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <i className="fa-solid fa-right-from-bracket"></i>
                     <h1>Logout</h1>
                 </div>
 

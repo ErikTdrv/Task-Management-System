@@ -6,19 +6,17 @@ import TaskCard from '../TaskCard/TaskCard';
 import TaskOverview from './TaskOverview';
 import { Link } from 'react-router-dom';
 import InfoPanel from '../InfoPanel';
+import { useSelector } from 'react-redux';
 
 export default function Home() {
+    const user = useSelector(state => state.user.user);
     const [allTasks, setAllTasks] = useState([]);
     const [completedTasks, setCompletedTasks] = useState([]);
     const [filteredTasks, setFilteredTasks] = useState([])
     const [isLoading, setIsLoading] = useState(true);
     const [currentTaskClick, setCurrentTaskClick] = useState();
     const [clickedFilter, setClickedFilter] = useState('All Tasks');
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+    const [userData, setUserData] = useState();
     useEffect(() => {
         async function getAllData() {
             const tasks = await getAllTasks();
@@ -32,14 +30,14 @@ export default function Home() {
         }
         getAllData();
     }, [])
+    useEffect(() => {
+        setUserData(user)
+    }, [user])
     const sortTasks = async (type) => {
         setClickedFilter(type);
         const formattedDate = getTodayDate();
 
         if (type === 'Today') {
-            //   setAllTasks((prevTasks) =>
-            //     prevTasks.filter((task) => task.date === formattedDate)
-            //   );
             setFilteredTasks(allTasks.filter((task) => task.date === formattedDate))
         } else if (type === 'All Tasks' && clickedFilter !== 'All Tasks') {
             setFilteredTasks(allTasks);

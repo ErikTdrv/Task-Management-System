@@ -1,18 +1,32 @@
 require('dotenv').config()
 const router = require('express').Router();
-const { register, login } = require('../services/authService');
+const { register, login, getUser } = require('../services/authService');
 const cloudinary = require('cloudinary');
 
+router.get('/user', async (req, res) => {
+    const userId = req?.user?._id;
+    try {
+        const cookie = req.cookies?.auth;
+        if (cookie) {
+            let user = await getUser(userId);
+            res.status(201).json(user)
+        } else {
+            res.status(201).json('No user found!')
+        }
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+})
 router.get('/logout', (req, res) => {
     try {
         res.clearCookie("auth", {
             httpOnly: true,
             secure: true,
             sameSite: 'none',
-          });
-          res.send({ message: "Cookie cleared successfully" });
+        });
+        res.send({ message: "Cookie cleared successfully" });
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json({ error: error.message })
     }
 })
 router.post('/register', async (req, res) => {
@@ -20,7 +34,7 @@ router.post('/register', async (req, res) => {
     const { profilePicture } = req.body;
     let profilePhotoId;
     try {
-        if(!profilePicture){
+        if (!profilePicture) {
             throw new Error('Profile picture is required!')
         }
         const upload = await cloudinary.v2.uploader.upload(profilePicture, {
@@ -36,13 +50,13 @@ router.post('/register', async (req, res) => {
             secure: true,
             sameSite: 'none',
         });
-        res.status(201).json({user});
+        res.status(201).json({ user });
     } catch (error) {
         console.log(error)
-        if(profilePicture){
+        if (profilePicture) {
             await cloudinary.v2.uploader.destroy(profilePhotoId);
         }
-        res.status(400).json({error: error.message})
+        res.status(400).json({ error: error.message })
     }
 })
 router.post('/login', async (req, res) => {
@@ -54,10 +68,10 @@ router.post('/login', async (req, res) => {
             secure: true,
             sameSite: 'none',
         });
-        res.status(201).json({user});
+        res.status(201).json({ user });
     } catch (error) {
         console.log(error)
-        res.status(400).json({error: error.message})
+        res.status(400).json({ error: error.message })
     }
 })
 
