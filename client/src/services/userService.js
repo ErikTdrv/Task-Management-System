@@ -12,6 +12,17 @@ export const register = async (userData) => {
   return await response.json();
 
 }
+export const logout = async () => {
+  const response = await fetch(`${API_URL}/logout`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include'
+  });
+  return await response.json();
+
+}
 export const login = async (userData) => {
   const response = await fetch(`${API_URL}/login`, {
     method: 'POST',

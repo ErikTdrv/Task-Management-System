@@ -9,6 +9,7 @@ import CreateTask from './components/CreateTask/CreateTask';
 import CompletedTasks from './components/CompletedTasks/CompletedTasks';
 
 function App() {
+
   return (
     <Routes>
       <Route exact path="/" element={<InitialPage />} />

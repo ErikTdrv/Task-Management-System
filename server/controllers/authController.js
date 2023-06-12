@@ -3,7 +3,18 @@ const router = require('express').Router();
 const { register, login } = require('../services/authService');
 const cloudinary = require('cloudinary');
 
-
+router.get('/logout', (req, res) => {
+    try {
+        res.clearCookie("auth", {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+          });
+          res.send({ message: "Cookie cleared successfully" });
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+})
 router.post('/register', async (req, res) => {
     const data = req.body;
     const { profilePicture } = req.body;

@@ -14,7 +14,7 @@
 .info__panel .options {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 20px;
 }
 
@@ -114,10 +114,12 @@
 .switchable button:hover {
     border-bottom: 2px solid rgb(255, 78, 78);
 }
+
 .clicked_filter {
     border-bottom: 2px solid rgb(255, 78, 78) !important;
 
 }
+
 .tasks {
     display: flex;
 }
@@ -309,4 +311,4 @@
 a {
     text-decoration: none;
     color: inherit;
-  }
+}

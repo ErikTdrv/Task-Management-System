@@ -14,6 +14,11 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [currentTaskClick, setCurrentTaskClick] = useState();
     const [clickedFilter, setClickedFilter] = useState('All Tasks');
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
     useEffect(() => {
         async function getAllData() {
             const tasks = await getAllTasks();
