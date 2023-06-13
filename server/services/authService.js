@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const validateToken = (token) => {
     try {
-        const data = jwt.verify(token, 'DASIJ319-0DSANM19M')
+        const data = jwt.verify(token, process.env.SECRET_KEY)
         return data
     } catch (error) {
         throw new Error('Invalid cookie token!')
@@ -15,7 +15,7 @@ const createAccessToken = (user) => {
         email: user.email,
         username: user.username
     }
-    const cookie = jwt.sign(payload, 'DASIJ319-0DSANM19M')
+    const cookie = jwt.sign(payload, process.env.SECRET_KEY)
     return {
         _id: user._id,
         email: user.email,

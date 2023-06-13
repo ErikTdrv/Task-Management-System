@@ -57,7 +57,7 @@ export default function Register() {
                 {authData.profilePicture && <img src={authData.profilePicture} alt="profile-picture" />}
                 <div className="divs username">
                     <i className="fa-solid fa-user"></i>
-                    <input type="text" placeholder='Username...'
+                    <input data-testid="username" type="text" placeholder='Username...'
                         onChange={(e) => setAuthData({ ...authData, username: e.target.value })}
                         onBlur={(e) => validateInputs(e, 'username')}
                     />
@@ -65,7 +65,7 @@ export default function Register() {
                 {errors?.username && <span className='error'>{errors.username}</span>}
                 <div className="divs email">
                     <i className="fa-solid fa-envelope"></i>
-                    <input type="text" placeholder='Email...'
+                    <input data-testid="email" type="text" placeholder='Email...'
                         onChange={(e) => setAuthData({ ...authData, email: e.target.value })}
                         onBlur={(e) => validateInputs(e, 'email')}
                     />
@@ -73,7 +73,7 @@ export default function Register() {
                 {errors?.email && <span className='error'>{errors.email}</span>}
                 <div className="divs password">
                     <i className="fa-solid fa-lock"></i>
-                    <input type="password" placeholder='Password...'
+                    <input data-testid="password" type="password" placeholder='Password...'
                         onChange={(e) => setAuthData({ ...authData, password: e.target.value })}
                         onBlur={(e) => validateInputs(e, 'password')}
                     />
@@ -81,7 +81,7 @@ export default function Register() {
                 {errors?.password && <span className='error'>{errors.password}</span>}
                 <div className="divs re-pass">
                     <i className="fa-solid fa-lock"></i>
-                    <input type="password" placeholder='Repeat Password...'
+                    <input data-testid="repeatPassword" type="password" placeholder='Repeat Password...'
                         onChange={(e) => setAuthData({ ...authData, repeatPassword: e.target.value })}
                         onBlur={(e) => validateInputs(e, 'repeatPassword')}
                     />
@@ -91,14 +91,14 @@ export default function Register() {
                     <label>
                         <i className="fa-solid fa-plus"></i>
                         Add Profile Picture
-                        <input type="file"
+                        <input data-testid="profilePicture" type="file"
                             onChange={async (e) => setAuthData({ ...authData, profilePicture: await convertToBase64(e.target.files[0]) })}
                             onBlur={(e) => validateInputs(e, 'profilePicture')}
                         />
                     </label>
                 </div>
                 {errors?.profilePicture && <span className='error'>{errors.profilePicture}</span>}
-                <ReCAPTCHA className='captcha' onChange={(token) => setAuthData({ ...authData, captcha: token })}
+                <ReCAPTCHA data-testid="captchathing" className='captcha' onChange={(token) => setAuthData({ ...authData, captcha: token })}
                     sitekey="6LddUYgmAAAAAHPKEc3-tIjOITc6PCzrs4Zl_9Sz" />
                 {errors?.captcha && <span className='error'>{errors.captcha}</span>}
                 <button disabled={Object.values(errors).some((e) => e.length > 0) ||

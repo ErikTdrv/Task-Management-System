@@ -1,5 +1,6 @@
 const API_URL = 'http://localhost:7070';
 
+
 export const addTask = async (task) => {
   const response = await fetch(`${API_URL}/add-task`, {
     method: 'POST',

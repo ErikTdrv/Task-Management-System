@@ -27,7 +27,7 @@ export default function CompletedTasks(){
             <InfoPanel/>
             <div className="main__panel">
                 <div className="main__info__panel">
-                    <h1>Completed Tasks</h1>
+                    <h1  data-testid="completed-tasks-heading">Completed Tasks</h1>
                 </div>
                 <div className="tasks">
                     <div className="tasks__panel">
@@ -37,7 +37,7 @@ export default function CompletedTasks(){
                                     <h1 className='empty'>No completed tasks!</h1>
                                 ) : (
                                     allTasks.map((task) => {
-                                        return <TaskCard key={task._id} setCurrentTaskClick={setCurrentTaskClick} task={task} mode={'view'} />
+                                        return <TaskCard data-testid="task-card" key={task._id} setCurrentTaskClick={setCurrentTaskClick} task={task} mode={'view'} />
                                     })
                                 )}
                             </>
@@ -45,10 +45,10 @@ export default function CompletedTasks(){
 
                     </div>
                     <div className="task__overview">
-                        <h1>Task Overview</h1>
+                        <h1 data-testid="task-overview-heading">Task Overview</h1>
                         <span className='info'>Click on task to see information</span>
                         <img src="./tasks2.jpg" />
-                        {currentTaskClick && <TaskOverview task={currentTaskClick} mode={'edit'}/>}
+                        {currentTaskClick && <TaskOverview data-testid="task-overview" task={currentTaskClick} mode={'edit'}/>}
                     </div>
                 </div>
             </div>

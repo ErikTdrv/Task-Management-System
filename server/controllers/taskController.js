@@ -3,7 +3,7 @@ const { addTask, getAllTasks, getOneTask, editOneTask, deleteOneTask, setTaskAsD
 const router = require('express').Router();
 
 router.get('/all-tasks', async (req, res) => {
-    const userId = req.user._id;
+    const userId = req.user?._id;
     try {
         const tasks = await getAllTasks(userId);
         res.status(201).json(tasks);

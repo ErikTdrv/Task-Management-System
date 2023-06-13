@@ -38,7 +38,7 @@ export default function CreateTask({ mode }) {
         <div className="create_task">
             <div className="authentication_container">
                 <form onSubmit={addTaskHandler} className="authentication_form">
-                    <h1>Add Task</h1>
+                    <h1 data-testid="add-task">Add Task</h1>
                     {mainError && <span className="error">{mainError}</span>}
                     <div className="title divs">
                         <i className="fa-solid fa-magnifying-glass"></i>
