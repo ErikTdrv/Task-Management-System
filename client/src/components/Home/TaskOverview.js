@@ -35,7 +35,6 @@ export default function TaskOverview({ task, deleteTaskHandler, setDoneTask }) {
             {!task.isDone && (
                 <div className="buttons">
                     <button onClick={() => deleteTaskHandler(task._id)} className='deleteBtn'>Delete</button>
-                    <button className='shareBtn'>Share</button>
                     <Link to={`/add-task/${task._id}`}>
                         <button className='editBtn'>Edit</button>
                     </Link>

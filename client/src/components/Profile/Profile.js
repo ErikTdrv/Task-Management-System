@@ -16,7 +16,7 @@ export default function Profile() {
             {userData?._id && (
                 <div className="profile__container">
                     <div className="profile">
-                        <img src={userData?.profilePicture} alt="profile-picture" />
+                        {userData?.profilePicture && <img src={userData?.profilePicture} alt="profile-picture" />}
                         <div className="info">
                             <span>Username: <span>{userData?.username}</span></span>
                             <span>Email: <span>{userData?.email}</span></span>
