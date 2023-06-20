@@ -24,7 +24,7 @@ export default function Login() {
     }
     return (
         <div className="authentication_container">
-            {isLoading ? <span class="loader"></span> : (
+            {isLoading ? <span className="loader"></span> : (
                 <form onSubmit={loginHandler} className="authentication_form">
                     <h1 data-testid="login-title">Login</h1>
                     {mainError && <span className='error'>{mainError}</span>}

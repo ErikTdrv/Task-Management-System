@@ -91,7 +91,7 @@ export default function Home() {
     return (
         <div className="home__container">
             {isLoading ? (
-                <span class="loader"></span>
+                <span className="loader"></span>
             ) : <>
                 <InfoPanel handleDownload={handleDownload} />
                 <div className="main__panel">
