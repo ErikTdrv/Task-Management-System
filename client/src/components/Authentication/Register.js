@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import './Authentication.css';
 import { convertToBase64, register } from '../../services/userService';
 import ReCAPTCHA from 'react-google-recaptcha';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
     const [authData, setAuthData] = useState({ username: '', email: '', password: '', repeatPassword: '', profilePicture: '', captcha: '' })
     const [errors, setErrors] = useState({ username: '', email: '', password: '', repeatPassword: '', profilePicture: '', captcha: '' })
     const [mainError, setMainError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     async function registerHandler(e) {
         e.preventDefault()
+        setIsLoading(true)
         if (authData.captcha == '') {
             return setErrors({ ...errors, captcha: 'You must complete captcha!' })
         } else if (authData.profilePicture == '') {
@@ -20,8 +22,10 @@ export default function Register() {
         const user = await register(authData);
         if (user?.error) {
             setMainError(user.error)
-        }else {
+            setIsLoading(false);
+        } else {
             navigate('/home')
+            setIsLoading(false);
         }
     }
     function validateInputs(e, type) {
@@ -49,60 +53,62 @@ export default function Register() {
     }
     return (
         <div className="authentication_container">
-            <form onSubmit={registerHandler} className="authentication_form">
-                <h1>Register Here</h1>
-                {mainError && <span className='error'>{mainError}</span>}
-                {authData.profilePicture && <img src={authData.profilePicture} alt="profile-picture" />}
-                <div className="divs username">
-                    <i className="fa-solid fa-user"></i>
-                    <input data-testid="username" type="text" placeholder='Username...'
-                        onChange={(e) => setAuthData({ ...authData, username: e.target.value })}
-                        onBlur={(e) => validateInputs(e, 'username')}
-                    />
-                </div>
-                {errors?.username && <span className='error'>{errors.username}</span>}
-                <div className="divs email">
-                    <i className="fa-solid fa-envelope"></i>
-                    <input data-testid="email" type="text" placeholder='Email...'
-                        onChange={(e) => setAuthData({ ...authData, email: e.target.value })}
-                        onBlur={(e) => validateInputs(e, 'email')}
-                    />
-                </div>
-                {errors?.email && <span className='error'>{errors.email}</span>}
-                <div className="divs password">
-                    <i className="fa-solid fa-lock"></i>
-                    <input data-testid="password" type="password" placeholder='Password...'
-                        onChange={(e) => setAuthData({ ...authData, password: e.target.value })}
-                        onBlur={(e) => validateInputs(e, 'password')}
-                    />
-                </div>
-                {errors?.password && <span className='error'>{errors.password}</span>}
-                <div className="divs re-pass">
-                    <i className="fa-solid fa-lock"></i>
-                    <input data-testid="repeatPassword" type="password" placeholder='Repeat Password...'
-                        onChange={(e) => setAuthData({ ...authData, repeatPassword: e.target.value })}
-                        onBlur={(e) => validateInputs(e, 'repeatPassword')}
-                    />
-                </div>
-                {errors?.repeatPassword && <span className='error'>{errors.repeatPassword}</span>}
-                <div className="divs file">
-                    <label>
-                        <i className="fa-solid fa-plus"></i>
-                        Add Profile Picture
-                        <input data-testid="profilePicture" type="file"
-                            onChange={async (e) => setAuthData({ ...authData, profilePicture: await convertToBase64(e.target.files[0]) })}
-                            onBlur={(e) => validateInputs(e, 'profilePicture')}
+            {isLoading ? <span className="loader"></span> : (
+                <form onSubmit={registerHandler} className="authentication_form">
+                    <h1>Register Here</h1>
+                    {mainError && <span className='error'>{mainError}</span>}
+                    {authData.profilePicture && <img src={authData.profilePicture} alt="profile-picture" />}
+                    <div className="divs username">
+                        <i className="fa-solid fa-user"></i>
+                        <input data-testid="username" type="text" placeholder='Username...'
+                            onChange={(e) => setAuthData({ ...authData, username: e.target.value })}
+                            onBlur={(e) => validateInputs(e, 'username')}
                         />
-                    </label>
-                </div>
-                {errors?.profilePicture && <span className='error'>{errors.profilePicture}</span>}
-                <ReCAPTCHA data-testid="captchathing" className='captcha' onChange={(token) => setAuthData({ ...authData, captcha: token })}
-                    sitekey="6LddUYgmAAAAAHPKEc3-tIjOITc6PCzrs4Zl_9Sz" />
-                {errors?.captcha && <span className='error'>{errors.captcha}</span>}
-                <button disabled={Object.values(errors).some((e) => e.length > 0) ||
-                    Object.values(authData).some((e) => e.length === 0)}>Register</button>
-                <p>Already have an account? <span>Sign In Here</span></p>
-            </form>
+                    </div>
+                    {errors?.username && <span className='error'>{errors.username}</span>}
+                    <div className="divs email">
+                        <i className="fa-solid fa-envelope"></i>
+                        <input data-testid="email" type="text" placeholder='Email...'
+                            onChange={(e) => setAuthData({ ...authData, email: e.target.value })}
+                            onBlur={(e) => validateInputs(e, 'email')}
+                        />
+                    </div>
+                    {errors?.email && <span className='error'>{errors.email}</span>}
+                    <div className="divs password">
+                        <i className="fa-solid fa-lock"></i>
+                        <input data-testid="password" type="password" placeholder='Password...'
+                            onChange={(e) => setAuthData({ ...authData, password: e.target.value })}
+                            onBlur={(e) => validateInputs(e, 'password')}
+                        />
+                    </div>
+                    {errors?.password && <span className='error'>{errors.password}</span>}
+                    <div className="divs re-pass">
+                        <i className="fa-solid fa-lock"></i>
+                        <input data-testid="repeatPassword" type="password" placeholder='Repeat Password...'
+                            onChange={(e) => setAuthData({ ...authData, repeatPassword: e.target.value })}
+                            onBlur={(e) => validateInputs(e, 'repeatPassword')}
+                        />
+                    </div>
+                    {errors?.repeatPassword && <span className='error'>{errors.repeatPassword}</span>}
+                    <div className="divs file">
+                        <label>
+                            <i className="fa-solid fa-plus"></i>
+                            Add Profile Picture
+                            <input data-testid="profilePicture" type="file"
+                                onChange={async (e) => setAuthData({ ...authData, profilePicture: await convertToBase64(e.target.files[0]) })}
+                                onBlur={(e) => validateInputs(e, 'profilePicture')}
+                            />
+                        </label>
+                    </div>
+                    {errors?.profilePicture && <span className='error'>{errors.profilePicture}</span>}
+                    <ReCAPTCHA data-testid="captchathing" className='captcha' onChange={(token) => setAuthData({ ...authData, captcha: token })}
+                        sitekey="6LddUYgmAAAAAHPKEc3-tIjOITc6PCzrs4Zl_9Sz" />
+                    {errors?.captcha && <span className='error'>{errors.captcha}</span>}
+                    <button disabled={Object.values(errors).some((e) => e.length > 0) ||
+                        Object.values(authData).some((e) => e.length === 0)}>Register</button>
+                    <p>Already have an account? <span>Sign In Here</span></p>
+                </form>
+            )}
         </div>
     )
 }
