@@ -8,15 +8,13 @@ export default function Register() {
     const [authData, setAuthData] = useState({ username: '', email: '', password: '', repeatPassword: '', profilePicture: '', captcha: '' })
     const [errors, setErrors] = useState({ username: '', email: '', password: '', repeatPassword: '', profilePicture: '', captcha: '' })
     const [mainError, setMainError] = useState('');
-    const [areErrors, setAreErrors] = useState(false)
     const navigate = useNavigate();
+
     async function registerHandler(e) {
         e.preventDefault()
         if (authData.captcha == '') {
-            setAreErrors(true)
             return setErrors({ ...errors, captcha: 'You must complete captcha!' })
         } else if (authData.profilePicture == '') {
-            setAreErrors(true)
             return setErrors({ ...errors, profilePicture: 'You must upload profile picture!' })
         }
         const user = await register(authData);

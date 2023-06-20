@@ -2,6 +2,8 @@ require('dotenv').config()
 const router = require('express').Router();
 const { register, login, getUser } = require('../services/authService');
 const cloudinary = require('cloudinary');
+const { Recaptcha } = require('google-recaptcha');
+const secretKey = '6LddUYgmAAAAAJovu0nmJtAwj4Gp4fxcHIldf9oG';
 
 router.get('/user', async (req, res) => {
     const userId = req?.user?._id;
@@ -31,9 +33,23 @@ router.get('/logout', (req, res) => {
     }
 })
 router.post('/register', async (req, res) => {
+    
     const data = req.body;
+    const captchaReq = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `secret=${secretKey}&response=${req.body?.captcha}`,
+    });
+    const captchaData = await captchaReq.json();
+    if(!captchaData.success){
+        res.status(400).json({ error: 'Invalid Captcha!' })
+    }
+
     const { profilePicture } = req.body;
     let profilePhotoId;
+
     try {
         if (!profilePicture) {
             throw new Error('Profile picture is required!')
