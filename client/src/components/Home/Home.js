@@ -1,12 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import './Home.css'
-import { useNavigate } from 'react-router-dom';
 import { deleteTask, getAllTasks, getCompletedTasks, getTodayDate, setTaskAsDone } from '../../services/taskService';
 import TaskCard from '../TaskCard/TaskCard';
 import TaskOverview from './TaskOverview';
-import { Link } from 'react-router-dom';
 import InfoPanel from '../InfoPanel';
-import { useSelector } from 'react-redux';
 
 export default function Home() {
     const [allTasks, setAllTasks] = useState([]);

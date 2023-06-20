@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 export default function InfoPanel({ handleDownload }) {
     const user = useSelector(state => state.user.user);
-    const [userData, setUserData] = useState();
+    const [userData, setUserData] = useState({profilePicture: ''});
     const navigate = useNavigate()
     useEffect(() => {
         setUserData(user)
@@ -19,12 +19,14 @@ export default function InfoPanel({ handleDownload }) {
     return (
         <div className="info__panel">
             <div className="options">
-                <Link to={'/profile'}>
-                    <div>
-                        <img src={user?.profilePicture} alt="user-picture" />
-                        <h1>{user?.username}</h1>
-                    </div>
-                </Link>
+                {userData?.profilePicture && (
+                    <Link to={'/profile'}>
+                        <div>
+                            <img src={user?.profilePicture} alt="user-picture" />
+                            <h1>{user?.username}</h1>
+                        </div>
+                    </Link>
+                )}
                 <Link to={'/home'}>
                     <div>
                         <i className="fa-solid fa-list-check"></i>
