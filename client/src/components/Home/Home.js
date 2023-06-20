@@ -14,6 +14,7 @@ export default function Home() {
     const [clickedFilter, setClickedFilter] = useState('All Tasks');
     useEffect(() => {
         async function getAllData() {
+            setIsLoading(true)
             const tasks = await getAllTasks();
             const completedTasks = await getCompletedTasks();
             if (!tasks?.error) {
@@ -25,7 +26,7 @@ export default function Home() {
         }
         getAllData();
     }, [])
-    
+
     const sortTasks = async (type) => {
         setClickedFilter(type);
         const formattedDate = getTodayDate();
@@ -89,39 +90,43 @@ export default function Home() {
 
     return (
         <div className="home__container">
-            <InfoPanel handleDownload={handleDownload} />
-            <div className="main__panel">
-                <div className="main__info__panel">
-                    <h1>{clickedFilter}</h1>
-                    <div className="switchable">
-                        <button className={clickedFilter == 'All Tasks' ? 'clicked_filter' : ''} onClick={() => sortTasks('All Tasks')}>All Tasks</button>
-                        <button className={clickedFilter == 'Today' ? 'clicked_filter' : ''} onClick={() => sortTasks('Today')}>Today</button>
-                        <button className={clickedFilter == 'Important' ? 'clicked_filter' : ''} onClick={() => sortTasks('Important')}>Important</button>
+            {isLoading ? (
+                <span class="loader"></span>
+            ) : <>
+                <InfoPanel handleDownload={handleDownload} />
+                <div className="main__panel">
+                    <div className="main__info__panel">
+                        <h1>{clickedFilter}</h1>
+                        <div className="switchable">
+                            <button className={clickedFilter == 'All Tasks' ? 'clicked_filter' : ''} onClick={() => sortTasks('All Tasks')}>All Tasks</button>
+                            <button className={clickedFilter == 'Today' ? 'clicked_filter' : ''} onClick={() => sortTasks('Today')}>Today</button>
+                            <button className={clickedFilter == 'Important' ? 'clicked_filter' : ''} onClick={() => sortTasks('Important')}>Important</button>
+                        </div>
                     </div>
-                </div>
-                <div className="tasks">
-                    <div className="tasks__panel">
-                        {!isLoading && (
-                            <>
-                                {allTasks.length == 0 ? (
-                                    <h1 className='empty'>No current tasks!</h1>
-                                ) : (
-                                    filteredTasks.map((task) => {
-                                        return <TaskCard key={task._id} setCurrentTaskClick={setCurrentTaskClick} task={task} setDoneTask={setDoneTask} />
-                                    })
-                                )}
-                            </>
-                        )}
+                    <div className="tasks">
+                        <div className="tasks__panel">
+                            {!isLoading && (
+                                <>
+                                    {allTasks.length == 0 ? (
+                                        <h1 className='empty'>No current tasks!</h1>
+                                    ) : (
+                                        filteredTasks.map((task) => {
+                                            return <TaskCard key={task._id} setCurrentTaskClick={setCurrentTaskClick} task={task} setDoneTask={setDoneTask} />
+                                        })
+                                    )}
+                                </>
+                            )}
 
-                    </div>
-                    <div className="task__overview">
-                        <h1>Task Overview</h1>
-                        <span className='info'>Click on task to see information</span>
-                        <img src="./tasks2.jpg" />
-                        {currentTaskClick && <TaskOverview task={currentTaskClick} deleteTaskHandler={deleteTaskHandler} setDoneTask={setDoneTask} />}
+                        </div>
+                        <div className="task__overview">
+                            <h1>Task Overview</h1>
+                            <span className='info'>Click on task to see information</span>
+                            <img src="./tasks2.jpg" />
+                            {currentTaskClick && <TaskOverview task={currentTaskClick} deleteTaskHandler={deleteTaskHandler} setDoneTask={setDoneTask} />}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>}
         </div>
     );
 
