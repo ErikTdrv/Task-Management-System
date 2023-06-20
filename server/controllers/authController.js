@@ -2,8 +2,7 @@ require('dotenv').config()
 const router = require('express').Router();
 const { register, login, getUser } = require('../services/authService');
 const cloudinary = require('cloudinary');
-const { Recaptcha } = require('google-recaptcha');
-const secretKey = '6LddUYgmAAAAAJovu0nmJtAwj4Gp4fxcHIldf9oG';
+const secretKey = process.env.SECRET_GOOGLE_KEY;
 
 router.get('/user', async (req, res) => {
     const userId = req?.user?._id;
